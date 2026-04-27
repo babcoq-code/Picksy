@@ -1,0 +1,817 @@
+{
+  "meta": {
+    "version": "2026-04",
+    "categorie": "tv_oled",
+    "fichier": "S1_S2_moins_2000EUR",
+    "sources": [
+      "RTINGS",
+      "QUEChoisir",
+      "LesNumeriques",
+      "Which",
+      "Wirecutter"
+    ]
+  },
+  "guide_segments": {
+    "S1": "moins de 1000 EUR",
+    "S2": "1000 a 2000 EUR",
+    "S3": "2000 a 4000 EUR (fichier S3_S4)",
+    "S4": "plus de 4000 EUR (fichier S3_S4)"
+  },
+  "produits": [
+    {
+      "id": "tv-oled-lg-a4-2024",
+      "marque": "LG",
+      "modele": "OLED A4",
+      "annee": 2024,
+      "segment": "S1",
+      "type_dalle": "WOLED",
+      "resolution": "4K",
+      "tailles_pouces": [
+        42,
+        48,
+        55,
+        65,
+        77
+      ],
+      "frequence_hz": 60,
+      "hdmi_21": 0,
+      "hdmi_20": 4,
+      "dolby_vision": true,
+      "dolby_vision_gaming": false,
+      "hdr10_plus": false,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": false,
+      "freesync": false,
+      "allm": true,
+      "vrr": false,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": null,
+      "input_lag_4k60_ms": 14.0,
+      "lum_hdr_peak_nits": 550,
+      "lum_sdr_peak_nits": 280,
+      "os": "webOS 24",
+      "audio_watts": 20,
+      "ecran": "Glossy",
+      "ambilight": null,
+      "prix_eur_par_taille": {
+        "42": [
+          550,
+          700
+        ],
+        "48": [
+          650,
+          800
+        ],
+        "55": [
+          750,
+          950
+        ],
+        "65": [
+          1100,
+          1350
+        ],
+        "77": [
+          1800,
+          2200
+        ]
+      },
+      "note_rtings": null,
+      "usage_principal": "cinema_serie_chambre",
+      "profil_ideal": "entrée_de_gamme_oled_chambre_budget_serré",
+      "pour_qui": "Celui qui veut entrer dans l'OLED au prix le plus bas, usage chambre ou second TV",
+      "eviter_si": "Gaming (0 port HDMI 2.1, pas de VRR, 60Hz uniquement) - Pièce lumineuse",
+      "verdict": "L'A4 est le ticket d'entrée OLED de LG mais ses limites sont réelles : dalle 60 Hz et aucun port HDMI 2.1 le rendent inutile pour le gaming moderne. Pour cinéma dans une chambre sombre avec un budget ultra-serré, il fait le job grâce aux noirs OLED parfaits, mais le B5 est bien supérieur pour à peine plus cher.",
+      "notes": "Le modèle 42\" tombe régulièrement sous 600€ en promotion - seul intérêt valable.",
+      "points_forts": [
+        "noirs parfaits OLED",
+        "prix accessible",
+        "Dolby Vision",
+        "webOS"
+      ],
+      "points_faibles": [
+        "dalle 60Hz",
+        "0 port HDMI 2.1",
+        "pas de VRR",
+        "luminosité faible",
+        "pas pour les pièces lumineuses"
+      ],
+      "alternatives_proches": [
+        "LG B5 48\" (bien meilleur)",
+        "Samsung S90F 42\""
+      ]
+    },
+    {
+      "id": "tv-oled-samsung-s85f-2025",
+      "marque": "Samsung",
+      "modele": "OLED S85F",
+      "annee": 2025,
+      "segment": "S1-S2",
+      "type_dalle": "QD_OLED",
+      "resolution": "4K",
+      "tailles_pouces": [
+        55,
+        65
+      ],
+      "frequence_hz": 120,
+      "hdmi_21": 4,
+      "hdmi_20": null,
+      "dolby_vision": false,
+      "dolby_vision_gaming": false,
+      "hdr10_plus": true,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": true,
+      "freesync": true,
+      "allm": true,
+      "vrr": true,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": 5.5,
+      "lum_hdr_peak_nits": 1050,
+      "lum_sdr_peak_nits": 380,
+      "os": "Tizen (Samsung)",
+      "audio_watts": 40,
+      "ecran": "Glossy",
+      "ambilight": null,
+      "prix_eur_par_taille": {
+        "55": [
+          900,
+          1100
+        ],
+        "65": [
+          1300,
+          1600
+        ]
+      },
+      "note_rtings": null,
+      "usage_principal": "mixte_cinema_gaming",
+      "profil_ideal": "QD-OLED entrée de gamme, couleurs vives, gaming",
+      "pour_qui": "Celui qui veut un QD-OLED avec des couleurs vives à prix contenu, pas fan de Dolby Vision",
+      "eviter_si": "Utilisateurs Netflix/Apple TV attachés à Dolby Vision - Pièce très lumineuse (surface Glossy)",
+      "verdict": "Le S85F est le QD-OLED le moins cher du marché et offre des couleurs nettement plus saturées que les WOLED de même prix. Limité à 120Hz et surface Glossy contre le S90F. Pour un usage mixte à budget S2, il surpasse l'A4 et le B5 sur les couleurs mais reste en dessous du S90F.",
+      "notes": "Disponible seulement en 55\" et 65\" en Europe. Le S90F vaut souvent la différence de prix pour le 144Hz et la meilleure luminosité SDR.",
+      "points_forts": [
+        "QD-OLED couleurs très vives",
+        "4x HDMI 2.1",
+        "VRR G-Sync",
+        "prix compétitif",
+        "HDR10+"
+      ],
+      "points_faibles": [
+        "pas de Dolby Vision (Samsung)",
+        "surface Glossy",
+        "120Hz seulement",
+        "moins brillant en SDR que S90F"
+      ],
+      "alternatives_proches": [
+        "Samsung S90F (upgrade recommandé)",
+        "LG B5 (WOLED + DV)"
+      ]
+    },
+    {
+      "id": "tv-oled-lg-b5-2025",
+      "marque": "LG",
+      "modele": "OLED B5",
+      "annee": 2025,
+      "segment": "S2",
+      "type_dalle": "WOLED",
+      "resolution": "4K",
+      "tailles_pouces": [
+        48,
+        55,
+        65,
+        77,
+        83
+      ],
+      "frequence_hz": 120,
+      "hdmi_21": 4,
+      "hdmi_20": null,
+      "dolby_vision": true,
+      "dolby_vision_gaming": true,
+      "hdr10_plus": false,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": true,
+      "freesync": true,
+      "allm": true,
+      "vrr": true,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": 5.5,
+      "lum_hdr_peak_nits": 850,
+      "lum_sdr_peak_nits": 340,
+      "os": "webOS 25",
+      "audio_watts": 40,
+      "ecran": "Glossy",
+      "ambilight": null,
+      "prix_eur_par_taille": {
+        "48": [
+          950,
+          1150
+        ],
+        "55": [
+          1200,
+          1450
+        ],
+        "65": [
+          1600,
+          1900
+        ],
+        "77": [
+          2400,
+          2800
+        ],
+        "83": [
+          3000,
+          3800
+        ]
+      },
+      "note_rtings": "RTINGS Best Budget OLED 2026",
+      "usage_principal": "mixte_cinema_gaming",
+      "profil_ideal": "meilleur rapport qualité-prix OLED pour TV salon usage mixte",
+      "pour_qui": "Acheteur cherchant son premier grand OLED avec toutes les fonctions gaming sans dépenser 2000€+",
+      "eviter_si": "Pièce très lumineuse (préférer C5 ou S90F), usage PC monitor (préférer S90F), fans HDR10+ (aucun support)",
+      "verdict": "Le meilleur OLED budget en 2026 selon RTINGS. Noirs parfaits, Dolby Vision, 4x HDMI 2.1, VRR complet. La luminosité SDR reste modeste pour les pièces lumineuses et les couleurs sont moins punchies que les QD-OLED, mais c'est le meilleur point d'entrée OLED avec toutes les fonctions gaming.",
+      "notes": "Remplace avantageusement le B4. RTINGS l'a promu de \"Best Mid-Range\" à \"Best Budget OLED\" en nov. 2025 suite à l'arrivée du S90F. 4x HDMI 2.1 sur tous les ports = gros avantage face à Sony.",
+      "points_forts": [
+        "noirs parfaits OLED",
+        "Dolby Vision Gaming",
+        "4x HDMI 2.1",
+        "VRR G-Sync+FreeSync",
+        "webOS mature",
+        "prix accessible"
+      ],
+      "points_faibles": [
+        "luminosité SDR modeste (pièces lumineuses difficiles)",
+        "pas de 144Hz",
+        "couleurs moins vives que QD-OLED",
+        "surface Glossy",
+        "pas de HDR10+",
+        "pas de DTS passthrough (2025)"
+      ],
+      "alternatives_proches": [
+        "LG C5 55\" (144Hz + plus lumineux",
+        "+300€)",
+        "Samsung S90F 55\" (QD-OLED",
+        "couleurs ++)"
+      ]
+    },
+    {
+      "id": "tv-oled-lg-c4-2024",
+      "marque": "LG",
+      "modele": "OLED evo C4",
+      "annee": 2024,
+      "segment": "S2",
+      "type_dalle": "WOLED_evo",
+      "resolution": "4K",
+      "tailles_pouces": [
+        42,
+        48,
+        55,
+        65,
+        77,
+        83
+      ],
+      "frequence_hz": 144,
+      "hdmi_21": 4,
+      "hdmi_20": null,
+      "dolby_vision": true,
+      "dolby_vision_gaming": true,
+      "hdr10_plus": false,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": true,
+      "freesync": true,
+      "allm": true,
+      "vrr": true,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": 5.0,
+      "lum_hdr_peak_nits": 900,
+      "lum_sdr_peak_nits": 320,
+      "os": "webOS 24",
+      "audio_watts": 60,
+      "ecran": "Glossy",
+      "ambilight": null,
+      "prix_eur_par_taille": {
+        "42": [
+          800,
+          950
+        ],
+        "48": [
+          900,
+          1100
+        ],
+        "55": [
+          1000,
+          1300
+        ],
+        "65": [
+          1400,
+          1700
+        ],
+        "77": [
+          2400,
+          2900
+        ],
+        "83": [
+          3500,
+          4200
+        ]
+      },
+      "note_rtings": null,
+      "usage_principal": "gaming_cinema_mixte",
+      "profil_ideal": "meilleur rapport Q/P en OLED evo 144Hz, excellente option 2024 en promo",
+      "pour_qui": "Acheteur qui trouve le C4 en promo bien en dessous du C5, cherche 144Hz + DV + 4x HDMI 2.1",
+      "eviter_si": "Acheteur souhaitant acheter au prix fort (le C5 2025 est légèrement supérieur), pièces très lumineuses",
+      "verdict": "Le C4 était le meilleur rapport Q/P OLED 2024 et reste excellent en promo. Il offre 144Hz, 4x HDMI 2.1, Dolby Vision Gaming, webOS complet. Le C5 le surpasse légèrement en luminosité et traitement d'image mais le C4 en promo à -30% est difficile à battre.",
+      "notes": "Si disponible à moins de 1300€ en 55\", achat immédiat. Disponible en 42\" = seul OLED evo 144Hz en petit format accessible. Très bon pour le gaming PC (4:4:4 + 144Hz).",
+      "points_forts": [
+        "noirs parfaits",
+        "144Hz",
+        "4x HDMI 2.1",
+        "Dolby Vision Gaming",
+        "webOS",
+        "disponible en 42\""
+      ],
+      "points_faibles": [
+        "luminosité SDR dans la moyenne",
+        "couleurs moins vives que QD-OLED",
+        "surface Glossy",
+        "DTS non passthrough",
+        "modèle 2024 (fin de stock)"
+      ],
+      "alternatives_proches": [
+        "LG C5 (version 2025 supérieure)",
+        "Samsung S90F (QD-OLED + couleurs ++)"
+      ]
+    },
+    {
+      "id": "tv-oled-panasonic-z85a-2025",
+      "marque": "Panasonic",
+      "modele": "Z85A OLED",
+      "annee": 2025,
+      "segment": "S2",
+      "type_dalle": "WOLED",
+      "resolution": "4K",
+      "tailles_pouces": [
+        55,
+        65
+      ],
+      "frequence_hz": 144,
+      "hdmi_21": 2,
+      "hdmi_20": null,
+      "dolby_vision": true,
+      "dolby_vision_gaming": false,
+      "hdr10_plus": true,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": false,
+      "freesync": false,
+      "allm": true,
+      "vrr": true,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": 15.0,
+      "lum_hdr_peak_nits": 900,
+      "lum_sdr_peak_nits": 300,
+      "os": "FireTV (Amazon)",
+      "audio_watts": 50,
+      "ecran": "Glossy",
+      "ambilight": null,
+      "prix_eur_par_taille": {
+        "55": [
+          1100,
+          1400
+        ],
+        "65": [
+          1600,
+          1900
+        ]
+      },
+      "note_rtings": "mention notable (RTINGS)",
+      "usage_principal": "cinema_serie_calibration",
+      "profil_ideal": "cinéphile pur voulant le meilleur upscaling et traitement d'image peu sensible au gaming",
+      "pour_qui": "Cinéphile qui regarde beaucoup de contenu compressé ou basse résolution, attaché à Dolby Vision et HDR10+",
+      "eviter_si": "Gamers (input lag 15ms en 4K120 = rédhibitoire, seulement 2x HDMI 2.1), pièces lumineuses, fans de Google TV",
+      "verdict": "Le Z85A est compétitif contre le S90F de Samsung pour la qualité d'image en cinéma grâce à son upscaling supérieur (meilleur lissage contenu basse qualité). Mais son input lag élevé en mode jeu, seulement 2 ports HDMI 2.1 et l'interface FireTV en font un choix réservé aux cinéphiles purs. Bonne option si on trouve sous 1200€ en 55\".",
+      "notes": "Panasonic a abandonné MyHomeScreen pour Amazon Fire TV en 2024. L'interface est convenable mais inférieure à webOS et Google TV. Le Z95B est la version MLA supérieure.",
+      "points_forts": [
+        "meilleur upscaling de sa catégorie",
+        "Dolby Vision + HDR10+",
+        "son excellent",
+        "traitement image Panasonic"
+      ],
+      "points_faibles": [
+        "input lag 15ms en 4K120 (gaming difficile)",
+        "seulement 2 HDMI 2.1",
+        "FireTV interface moins riche",
+        "pas de G-Sync/FreeSync",
+        "disponible qu'en 55\" et 65\""
+      ],
+      "alternatives_proches": [
+        "LG C5 (gaming + prix similaire)",
+        "Samsung S90F (meilleur pour tout usage mixte)"
+      ]
+    },
+    {
+      "id": "tv-oled-philips-oled808-2023",
+      "marque": "Philips",
+      "modele": "OLED808",
+      "annee": 2023,
+      "segment": "S2",
+      "type_dalle": "WOLED",
+      "resolution": "4K",
+      "tailles_pouces": [
+        42,
+        48,
+        55,
+        65,
+        77
+      ],
+      "frequence_hz": 120,
+      "hdmi_21": 2,
+      "hdmi_20": null,
+      "dolby_vision": true,
+      "dolby_vision_gaming": false,
+      "hdr10_plus": false,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": false,
+      "freesync": false,
+      "allm": true,
+      "vrr": true,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": 6.5,
+      "lum_hdr_peak_nits": 850,
+      "lum_sdr_peak_nits": 300,
+      "os": "GoogleTV",
+      "audio_watts": 70,
+      "ecran": "Glossy",
+      "ambilight": "oui_3_cotes",
+      "prix_eur_par_taille": {
+        "42": [
+          700,
+          950
+        ],
+        "48": [
+          900,
+          1100
+        ],
+        "55": [
+          1100,
+          1400
+        ],
+        "65": [
+          1600,
+          2000
+        ],
+        "77": [
+          2800,
+          3400
+        ]
+      },
+      "note_rtings": null,
+      "usage_principal": "cinema_serie_experience_immersive",
+      "profil_ideal": "fans d'Ambilight cherchant une expérience immersive unique",
+      "pour_qui": "Amateur d'ambiance lumineuse Ambilight, cinéphile qui veut une expérience salon unique avec Dolby Vision",
+      "eviter_si": "Gamers (seulement 2 HDMI 2.1, pas de G-Sync), acheteurs de neuf (modèle 2023, remplacé par OLED909)",
+      "verdict": "Le OLED808 reste pertinent en promotion pour son Ambilight 3 côtés unique, sa qualité sonore supérieure (70W) et son Google TV. Mais le modèle 2023 est en fin de vie et le OLED909 2024 est bien meilleur (MLA + Ambilight 4 côtés). À acheter seulement si prix < 1000€ en 55\".",
+      "notes": "Le seul TV OLED avec Ambilight à ce prix. Fonctionnalité unique et addictive pour les séries. Disponible en 42\" avec Ambilight = rarissime.",
+      "points_forts": [
+        "Ambilight 3 côtés unique",
+        "son 70W excellent",
+        "Google TV",
+        "Dolby Vision",
+        "disponible en 42\""
+      ],
+      "points_faibles": [
+        "modèle 2023 (fin de stock)",
+        "seulement 2 HDMI 2.1",
+        "pas de G-Sync/FreeSync",
+        "120Hz seulement",
+        "remplacé par le 909"
+      ],
+      "alternatives_proches": [
+        "Philips OLED909 (bien meilleur",
+        "segment S3)",
+        "LG B5 (gaming + meilleure luminosité)"
+      ]
+    },
+    {
+      "id": "tv-oled-hisense-a85n-2024",
+      "marque": "Hisense",
+      "modele": "OLED A85N",
+      "annee": 2024,
+      "segment": "S2",
+      "type_dalle": "WOLED",
+      "resolution": "4K",
+      "tailles_pouces": [
+        55,
+        65
+      ],
+      "frequence_hz": 120,
+      "hdmi_21": 2,
+      "hdmi_20": null,
+      "dolby_vision": false,
+      "dolby_vision_gaming": false,
+      "hdr10_plus": false,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": false,
+      "freesync": true,
+      "allm": true,
+      "vrr": true,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": 6.0,
+      "lum_hdr_peak_nits": 800,
+      "lum_sdr_peak_nits": 280,
+      "os": "VIDAA U7",
+      "audio_watts": 30,
+      "ecran": "Glossy",
+      "ambilight": null,
+      "prix_eur_par_taille": {
+        "55": [
+          900,
+          1100
+        ],
+        "65": [
+          1300,
+          1500
+        ]
+      },
+      "note_rtings": null,
+      "usage_principal": "cinema_serie_budget",
+      "profil_ideal": "budget serré voulant un OLED de grande marque alternative",
+      "pour_qui": "Acheteur sensible au prix qui veut OLED sans dépenser 1300€+ en 55\"",
+      "eviter_si": "Gamers (2 HDMI 2.1, no G-Sync, no DV), fans de Dolby Vision, acheteurs cherchant le meilleur support SAV",
+      "verdict": "Le A85N est l'OLED Hisense le plus accessible mais ses lacunes sont nombreuses pour les exigeants : pas de Dolby Vision, seulement 2 HDMI 2.1, interface VIDAA basique. Il offre des noirs OLED corrects et une image décente mais le LG B5 est clairement supérieur pour le même budget.",
+      "notes": "Hisense positionne ses OLED comme entrée de gamme agressive mais la concurrence LG/Samsung est féroce à ce prix.",
+      "points_forts": [
+        "prix compétitif",
+        "noirs OLED corrects",
+        "FreeSync",
+        "disponible en 55\""
+      ],
+      "points_faibles": [
+        "pas de Dolby Vision",
+        "2 HDMI 2.1 seulement",
+        "interface VIDAA limitée",
+        "luminosité modeste",
+        "SAV Hisense moins implanté"
+      ],
+      "alternatives_proches": [
+        "LG B5 55\" (supérieur sur tous les points",
+        "prix similaire)"
+      ]
+    },
+    {
+      "id": "tv-oled-lg-c5-2025",
+      "marque": "LG",
+      "modele": "OLED evo C5",
+      "annee": 2025,
+      "segment": "S2-S3",
+      "type_dalle": "WOLED_evo",
+      "resolution": "4K",
+      "tailles_pouces": [
+        42,
+        48,
+        55,
+        65,
+        77,
+        83
+      ],
+      "frequence_hz": 144,
+      "hdmi_21": 4,
+      "hdmi_20": null,
+      "dolby_vision": true,
+      "dolby_vision_gaming": true,
+      "hdr10_plus": false,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": true,
+      "freesync": true,
+      "allm": true,
+      "vrr": true,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": 5.0,
+      "lum_hdr_peak_nits": 1100,
+      "lum_sdr_peak_nits": 380,
+      "os": "webOS 25",
+      "audio_watts": 60,
+      "ecran": "Glossy",
+      "ambilight": null,
+      "prix_eur_par_taille": {
+        "42": [
+          900,
+          1100
+        ],
+        "48": [
+          1100,
+          1350
+        ],
+        "55": [
+          1400,
+          1700
+        ],
+        "65": [
+          1900,
+          2300
+        ],
+        "77": [
+          2900,
+          3400
+        ],
+        "83": [
+          4200,
+          5000
+        ]
+      },
+      "note_rtings": "mention notable top pick (Wirecutter OLED 2026, RTINGS notable)",
+      "usage_principal": "mixte_gaming_cinema",
+      "profil_ideal": "meilleur rapport Q/P OLED polyvalent en 2025-2026",
+      "pour_qui": "Acheteur cherchant le meilleur OLED polyvalent sans atteindre le budget flagship, usage gaming + cinéma",
+      "eviter_si": "Gamers PC qui veulent 165Hz (préférer G5/S95F), fans d'antireflet (surface Glossy), budget limité (préférer B5)",
+      "verdict": "Le C5 est LE choix de référence OLED 2025 selon Wirecutter et recommandé par RTINGS. Plus lumineux que le C4 en SDR et HDR, traitement d'image amélioré, webOS 25. Compatible PS5/Xbox Series X en 4K120. Légèrement inférieur au S90F sur les couleurs (QD-OLED vs WOLED) mais supérieur sur l'écosystème Dolby Vision. Prix 42\" sous 1100€ = meilleur OLED evo 144Hz en compact.",
+      "notes": "Le modèle 42\" et 48\" excellent pour gaming bureau. Compatible Xbox Series X avec Dolby Vision Gaming = expérience unique. Wirecutter first pick 2026.",
+      "points_forts": [
+        "noirs parfaits",
+        "144Hz",
+        "4x HDMI 2.1",
+        "Dolby Vision Gaming",
+        "webOS 25",
+        "disponible en 42\"-83\"",
+        "bonne luminosité SDR"
+      ],
+      "points_faibles": [
+        "surface Glossy (reflets en pièce lumineuse)",
+        "couleurs moins vives que S90F (QD-OLED)",
+        "pas de HDR10+",
+        "pas de DTS passthrough (2025)",
+        "stutter 24fps (caractéristique OLED)"
+      ],
+      "alternatives_proches": [
+        "Samsung S90F (QD-OLED couleurs ++ mais no DV)",
+        "LG G5 (flagship +600€+)"
+      ]
+    },
+    {
+      "id": "tv-oled-samsung-s90f-2025",
+      "marque": "Samsung",
+      "modele": "OLED S90F",
+      "annee": 2025,
+      "segment": "S2",
+      "type_dalle": "QD_OLED",
+      "resolution": "4K",
+      "tailles_pouces": [
+        42,
+        48,
+        55,
+        65,
+        77,
+        83
+      ],
+      "frequence_hz": 144,
+      "hdmi_21": 4,
+      "hdmi_20": null,
+      "dolby_vision": false,
+      "dolby_vision_gaming": false,
+      "hdr10_plus": true,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": true,
+      "freesync": true,
+      "allm": true,
+      "vrr": true,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": 4.0,
+      "lum_hdr_peak_nits": 1300,
+      "lum_sdr_peak_nits": 430,
+      "os": "Tizen (Samsung)",
+      "audio_watts": 60,
+      "ecran": "Glossy",
+      "ambilight": null,
+      "prix_eur_par_taille": {
+        "42": [
+          800,
+          1000
+        ],
+        "48": [
+          950,
+          1150
+        ],
+        "55": [
+          1200,
+          1500
+        ],
+        "65": [
+          1700,
+          2100
+        ],
+        "77": [
+          2500,
+          3000
+        ],
+        "83": [
+          4000,
+          5000
+        ]
+      },
+      "note_rtings": "RTINGS Best Mid-Range OLED 2026",
+      "usage_principal": "mixte_gaming_cinema_sport",
+      "profil_ideal": "meilleur QD-OLED rapport Q/P 2025, couleurs ultra-vives, usage polyvalent",
+      "pour_qui": "Acheteur voulant les meilleures couleurs OLED disponibles sans dépenser 2500€+, non attaché à Dolby Vision",
+      "eviter_si": "Fans de Dolby Vision (Samsung ne supporte pas DV), pièces très lumineuses frontales (surface Glossy - préférer S95F), petits budgets (préférer LG B5)",
+      "verdict": "Le S90F est le OLED milieu de gamme le plus recommandé en 2026 par RTINGS. QD-OLED avec des couleurs nettement plus vives et saturées que les WOLED, luminosité SDR supérieure au C5, input lag excellent (~4ms). La seule vraie limite : aucun support Dolby Vision (politique Samsung). Pour cinéma, gaming et sport dans une pièce modérément éclairée, c'est l'alternative directe au C5 avec une image plus éclatante.",
+      "notes": "RTINGS l'a promu \"Best Mid-Range OLED\" en juillet 2025 en remplacement du LG C4. Le 42\" en dessous de 1000€ = meilleur QD-OLED compact disponible. Tizen reste un très bon OS smart TV.",
+      "points_forts": [
+        "QD-OLED couleurs très vives",
+        "4x HDMI 2.1 144Hz",
+        "VRR G-Sync+FreeSync",
+        "HDR10+",
+        "input lag ~4ms",
+        "disponible de 42\" à 83\"",
+        "webOS absent mais Tizen solide"
+      ],
+      "points_faibles": [
+        "pas de Dolby Vision (politique Samsung)",
+        "surface Glossy",
+        "Tizen moins intuitif que webOS",
+        "pas de DTS passthrough"
+      ],
+      "alternatives_proches": [
+        "LG C5 (Dolby Vision gaming + webOS)",
+        "Samsung S95F (flagship QD-OLED antireflet)"
+      ]
+    },
+    {
+      "id": "tv-oled-sony-bravia-8-2024",
+      "marque": "Sony",
+      "modele": "Bravia 8 OLED (XR-55A80L/XR-65A80L)",
+      "annee": 2024,
+      "segment": "S2-S3",
+      "type_dalle": "WOLED",
+      "resolution": "4K",
+      "tailles_pouces": [
+        55,
+        65,
+        77
+      ],
+      "frequence_hz": 120,
+      "hdmi_21": 2,
+      "hdmi_20": null,
+      "dolby_vision": true,
+      "dolby_vision_gaming": false,
+      "hdr10_plus": false,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": false,
+      "freesync": false,
+      "allm": true,
+      "vrr": true,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": 8.5,
+      "lum_hdr_peak_nits": 950,
+      "lum_sdr_peak_nits": 320,
+      "os": "GoogleTV",
+      "audio_watts": 60,
+      "ecran": "Glossy",
+      "ambilight": null,
+      "prix_eur_par_taille": {
+        "55": [
+          1400,
+          1700
+        ],
+        "65": [
+          1900,
+          2400
+        ],
+        "77": [
+          3200,
+          4000
+        ]
+      },
+      "note_rtings": "N/A (remplacé par Bravia 8 II en 2025)",
+      "usage_principal": "cinema_serie_calibration",
+      "profil_ideal": "cinéphile Sony cherchant Netflix Certified + Google TV + Dolby Vision",
+      "pour_qui": "Fan de l'écosystème Sony/Google TV, cinéphile qui regarde beaucoup de Netflix (Certified Calibrated)",
+      "eviter_si": "Gamers (seulement 2 HDMI 2.1, input lag 8.5ms, pas de G-Sync/FreeSync/DVG), budget serré (préférer LG C5)",
+      "verdict": "La Bravia 8 2024 est une excellente TV cinéma avec Google TV, Netflix Calibrated Mode et Dolby Vision. Mais ses limitations gaming (2 HDMI 2.1, input lag ~8.5ms, pas de VRR gaming optimisé) et son prix premium pour les specs offertes en font un choix difficile face à LG C5 ou S90F. Disponible en promo en 55\" = bon achat cinéphile.",
+      "notes": "Modèle 2024 en fin de stock. Le Bravia 8 II 2025 est QD-OLED et significativement supérieur. Sony ne propose que 2 ports HDMI 2.1 sur toute sa gamme TV = limitation structurelle importante.",
+      "points_forts": [
+        "traitement image Sony XR",
+        "Netflix Calibrated",
+        "Google TV",
+        "Dolby Vision",
+        "son Acoustic Surface Audio"
+      ],
+      "points_faibles": [
+        "seulement 2 HDMI 2.1 (gros désavantage)",
+        "input lag 8.5ms gaming",
+        "pas de G-Sync/FreeSync DV Gaming",
+        "remplacé par Bravia 8 II"
+      ],
+      "alternatives_proches": [
+        "Sony Bravia 8 II (supérieure 2025)",
+        "LG C5 (meilleur gaming + 4x HDMI 2.1)"
+      ]
+    }
+  ]
+}

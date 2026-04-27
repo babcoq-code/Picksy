@@ -1,0 +1,66 @@
+services:
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file: .env
+    depends_on:
+      - redis
+    restart: always
+    ports:
+      - "8000:8000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.picksy-api.rule=(Host(`picksy.babcoq.tech`) || Host(`troviio.com`) || Host(`www.troviio.com`) || Host(`troviio.org`) || Host(`troviio.online`)) && PathPrefix(`/api`)"
+      - "traefik.http.routers.picksy-api.entrypoints=websecure"
+      - "traefik.http.routers.picksy-api.tls.certresolver=letsencrypt"
+      - "traefik.http.services.picksy-api.loadbalancer.server.url=http://127.0.0.1:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    env_file: .env
+    restart: always
+    ports:
+      - "3000:3000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.picksy-web.rule=(Host(`picksy.babcoq.tech`) || Host(`troviio.com`) || Host(`www.troviio.com`) || Host(`troviio.org`) || Host(`troviio.online`)) && !PathPrefix(`/api`)"
+      - "traefik.http.routers.picksy-web.entrypoints=websecure"
+      - "traefik.http.routers.picksy-web.tls.certresolver=letsencrypt"
+      - "traefik.http.services.picksy-web.loadbalancer.server.url=http://127.0.0.1:3000"
+
+  celery_worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: celery -A app.celery_app worker --loglevel=info
+    env_file: .env
+    depends_on:
+      - redis
+    restart: always
+    volumes:
+      - ./backend:/app
+
+  celery_beat:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: celery -A app.celery_app beat --loglevel=info
+    env_file: .env
+    depends_on:
+      - redis
+    restart: always
+    volumes:
+      - ./backend:/app
+
+  redis:
+    image: redis:7-alpine
+    restart: always
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:

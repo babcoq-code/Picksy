@@ -1,0 +1,17 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" width="512" height="512" aria-label="Troviio app icon">
+  <title>Troviio app icon</title>
+  <defs>
+    <linearGradient id="lg-app" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B5F"/>
+      <stop offset="100%" stop-color="#3ED6A3"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="#FFF7ED" rx="114"/>
+  <g transform="translate(106, 106) scale(3)">
+    <path d="M 28 85 V 38 L 50 18 L 72 38 V 48 C 72 60, 62 68, 50 68 H 28"
+          fill="none" stroke="url(#lg-app)" stroke-width="10"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 50 43 C 50 49, 46 53, 40 53 C 46 53, 50 57, 50 63 C 50 57, 54 53, 60 53 C 54 53, 50 49, 50 43 Z"
+          fill="#4257FF"/>
+  </g>
+</svg>

@@ -1,0 +1,6 @@
+{
+  "documents": [
+    {"path": "/opt/picksy/frontend/src/data/tv-oled-s1s2.json", "title": "TV OLED S1-S2 (<2000€)"},
+    {"path": "/opt/picksy/frontend/src/data/tv-oled-s3s4.json", "title": "TV OLED S3-S4 (2000€+)"}
+  ]
+}

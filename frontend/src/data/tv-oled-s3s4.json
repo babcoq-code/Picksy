@@ -1,0 +1,966 @@
+{
+  "meta": {
+    "version": "2026-04",
+    "categorie": "tv_oled",
+    "fichier": "S3_S4_plus_2000EUR",
+    "sources": [
+      "RTINGS",
+      "QUEChoisir",
+      "LesNumeriques",
+      "Which",
+      "Wirecutter"
+    ]
+  },
+  "guide_segments": {
+    "S1": "moins de 1000 EUR (fichier S1_S2)",
+    "S2": "1000 a 2000 EUR (fichier S1_S2)",
+    "S3": "2000 a 4000 EUR",
+    "S4": "plus de 4000 EUR"
+  },
+  "produits": [
+    {
+      "id": "tv-oled-samsung-s95f-2025",
+      "marque": "Samsung",
+      "modele": "OLED S95F",
+      "annee": 2025,
+      "segment": "S3-S4",
+      "type_dalle": "QD_OLED",
+      "resolution": "4K",
+      "tailles_pouces": [
+        55,
+        65,
+        77,
+        83
+      ],
+      "frequence_hz": 165,
+      "hdmi_21": 4,
+      "hdmi_20": null,
+      "dolby_vision": false,
+      "dolby_vision_gaming": false,
+      "hdr10_plus": true,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": true,
+      "freesync": true,
+      "allm": true,
+      "vrr": true,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": 4.0,
+      "input_lag_4k165_ms": 4.0,
+      "lum_hdr_peak_nits": 1800,
+      "lum_sdr_peak_nits": 500,
+      "os": "Tizen (Samsung)",
+      "audio_watts": 60,
+      "ecran": "Matte (antireflet avancé)",
+      "ambilight": null,
+      "one_connect_box": true,
+      "prix_eur_par_taille": {
+        "55": [
+          2000,
+          2400
+        ],
+        "65": [
+          2700,
+          3200
+        ],
+        "77": [
+          3700,
+          4400
+        ],
+        "83": [
+          5000,
+          6000
+        ]
+      },
+      "note_rtings": "RTINGS #1 OLED 2026 (Best OLED TV)",
+      "usage_principal": "mixte_tout_usage",
+      "profil_ideal": "meilleur OLED toutes catégories 2025, référence absolue",
+      "pour_qui": "Acheteur cherchant le meilleur OLED disponible pour usage mixte : cinéma + gaming + pièce lumineuse",
+      "eviter_si": "Fans absolus de Dolby Vision (Samsung ne supporte pas DV - aucun modèle), budget < 2000€, acheteurs cherchant une référence de gestion DTS audio",
+      "verdict": "Le S95F est le meilleur OLED testé par RTINGS en 2026. QD-OLED avec dalles de 2e génération : 165Hz, antireflet matte qui élimine pratiquement tout reflet, 1800+ nits HDR, couleurs ultra-vivides QD, 4x HDMI 2.1 et input lag ~4ms. Le One Connect Box centralise tous les câbles. Seul vrai manque : pas de Dolby Vision (politique Samsung immuable). Pour un salon lumineux + gaming PC + cinéma = choix ultime.",
+      "notes": "RTINGS note explicite : \"some firmware issues on G5 impact picture quality\" = S95F reste le choix #1 plus fiable. Matte coating = quasi-invisible en plein soleil. 97\" non disponible sur S95F.",
+      "points_forts": [
+        "#1 RTINGS OLED 2026",
+        "QD-OLED couleurs ultra-vives",
+        "écran matte antireflet exceptionnel",
+        "165Hz",
+        "4x HDMI 2.1",
+        "HDR10+",
+        "~4ms input lag",
+        "One Connect Box",
+        "très bon en pièce lumineuse"
+      ],
+      "points_faibles": [
+        "pas de Dolby Vision (Samsung)",
+        "surface matte réduit légèrement la vivacité perçue vs glossy",
+        "Tizen moins intuitif que webOS",
+        "prix premium",
+        "stutter 24fps (caractéristique OLED)"
+      ],
+      "alternatives_proches": [
+        "LG G5 (DV + légèrement plus lumineux en HDR",
+        "mais firmware issues)",
+        "Sony Bravia 8 II (QD-OLED + DV + cinéma",
+        "mais plus cher)"
+      ]
+    },
+    {
+      "id": "tv-oled-lg-g5-2025",
+      "marque": "LG",
+      "modele": "OLED evo G5 (tandem RGB)",
+      "annee": 2025,
+      "segment": "S3-S4",
+      "type_dalle": "WOLED_tandem_rgb",
+      "resolution": "4K",
+      "tailles_pouces": [
+        55,
+        65,
+        77,
+        83,
+        97
+      ],
+      "frequence_hz": 165,
+      "hdmi_21": 4,
+      "hdmi_20": null,
+      "dolby_vision": true,
+      "dolby_vision_gaming": true,
+      "hdr10_plus": true,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": true,
+      "freesync": true,
+      "allm": true,
+      "vrr": true,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": 5.1,
+      "input_lag_4k165_ms": 4.0,
+      "lum_hdr_peak_nits": 1850,
+      "lum_sdr_peak_nits": 570,
+      "os": "webOS 25",
+      "audio_watts": 60,
+      "ecran": "Glossy",
+      "ambilight": null,
+      "prix_eur_par_taille": {
+        "55": [
+          2200,
+          2700
+        ],
+        "65": [
+          3000,
+          3600
+        ],
+        "77": [
+          4000,
+          4800
+        ],
+        "83": [
+          5500,
+          6500
+        ],
+        "97": [
+          14000,
+          18000
+        ]
+      },
+      "note_rtings": "notable mention top 2026 (concurrent direct S95F)",
+      "usage_principal": "mixte_gaming_cinema_pièce_lumineuse",
+      "profil_ideal": "flagship LG avec Dolby Vision Gaming + webOS + nouvelle dalle tandem RGB",
+      "pour_qui": "Fan LG / webOS cherchant le meilleur OLED avec Dolby Vision Gaming et compatibilité Xbox Series X DV",
+      "eviter_si": "Acheteurs près de l'écran (lignes diagonales dithering visibles de près), usage PC monitor assis très proche, pièces avec forte lumière directe (surface Glossy - préférer S95F)",
+      "verdict": "Le G5 est le premier TV à utiliser la nouvelle dalle \"primary RGB tandem OLED\" de LG - plus lumineuse et colorée que les WOLED classiques tout en restant inférieure aux QD-OLED purs sur la saturation. Il surpasse légèrement le S95F en luminosité HDR sur petits highlights et offre Dolby Vision Gaming (unique avantage vs Samsung). Des problèmes firmware notés par RTINGS (banding HDR, dithering visible de près) ont été partiellement corrigés. Excellent pour gaming Xbox avec DV.",
+      "notes": "RTINGS recommande S95F en priorité à cause des firmware issues G5. Le G5 rivalise de très près mais l'instabilité initiale pèse. Le 97\" utilise une WOLED classique (pas tandem RGB) - vérifier la spec avant achat. LG G6 2026 est le successeur direct.",
+      "points_forts": [
+        "nouvelle dalle tandem RGB très lumineuse",
+        "Dolby Vision Gaming (Xbox Series X)",
+        "165Hz",
+        "4x HDMI 2.1",
+        "webOS 25",
+        "upscaling exceptionnel",
+        "HDR10+",
+        "disponible en 97\""
+      ],
+      "points_faibles": [
+        "lignes diagonales (dithering) visibles de très près",
+        "noise dans scènes sombres",
+        "firmware issues historiques (corrections en cours)",
+        "surface Glossy",
+        "pas de DTS passthrough (2025)",
+        "97\" n'utilise pas la nouvelle dalle"
+      ],
+      "alternatives_proches": [
+        "Samsung S95F (plus fiable firmware",
+        "antireflet supérieur)",
+        "Sony Bravia 8 II (QD-OLED + DV)",
+        "LG G6 (2026",
+        "successeur)"
+      ]
+    },
+    {
+      "id": "tv-oled-sony-bravia-8-ii-2025",
+      "marque": "Sony",
+      "modele": "Bravia 8 II OLED",
+      "annee": 2025,
+      "segment": "S3-S4",
+      "type_dalle": "QD_OLED",
+      "resolution": "4K",
+      "tailles_pouces": [
+        55,
+        65,
+        77
+      ],
+      "frequence_hz": 120,
+      "hdmi_21": 2,
+      "hdmi_20": null,
+      "dolby_vision": true,
+      "dolby_vision_gaming": false,
+      "hdr10_plus": false,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": false,
+      "freesync": false,
+      "allm": true,
+      "vrr": true,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": 8.5,
+      "lum_hdr_peak_nits": 1500,
+      "lum_sdr_peak_nits": 420,
+      "os": "GoogleTV",
+      "audio_watts": 65,
+      "ecran": "Glossy",
+      "ambilight": null,
+      "prix_eur_par_taille": {
+        "55": [
+          2200,
+          2700
+        ],
+        "65": [
+          3000,
+          3600
+        ],
+        "77": [
+          4000,
+          5000
+        ]
+      },
+      "note_rtings": "notable mention (concurrent G5 et S95F pour cinéma)",
+      "usage_principal": "cinema_serie_premium",
+      "profil_ideal": "cinéphile premium cherchant QD-OLED + Dolby Vision + Google TV + traitement image Sony",
+      "pour_qui": "Cinéphile haut de gamme attaché à Google TV, Netflix/Apple TV Dolby Vision, traitement image Sony XR",
+      "eviter_si": "Gamers (seulement 2 HDMI 2.1, input lag 8.5ms, pas de G-Sync/DVG), acheteurs au rapport Q/P (S95F supérieur à prix similaire pour usage mixte)",
+      "verdict": "La Bravia 8 II est remarquable pour son combo QD-OLED + Dolby Vision - une rareté (seul Samsung refuse DV). QD-OLED pour des couleurs vivides + Dolby Vision pour la compatibilité contenu Netflix/Apple TV. Traitement image Sony XR best-in-class pour cinéma. Mais la limitation gaming (2 HDMI 2.1, input lag, pas de DVG ni G-Sync) est rédhibitoire pour les gamers. RTINGS la voit comme le choix cinéphile face au S95F gaming.",
+      "notes": "Sony maintient sa politique de 2 ports HDMI 2.1 sur tous ses TV - pas d'évolution attendue. La Bravia 8 II est le successeur direct du A95L. Idéale pour home cinema dédié sans gaming.",
+      "points_forts": [
+        "QD-OLED + Dolby Vision (combo rare)",
+        "traitement image Sony XR supérieur en cinéma",
+        "Google TV excellent",
+        "Netflix Calibrated",
+        "son Acoustic Surface Audio",
+        "65W"
+      ],
+      "points_faibles": [
+        "seulement 2 HDMI 2.1 (limitation Sony permanente)",
+        "input lag 8.5ms gaming",
+        "pas de G-Sync/FreeSync/DVG",
+        "prix élevé",
+        "surface Glossy",
+        "pas de HDR10+"
+      ],
+      "alternatives_proches": [
+        "Samsung S95F (meilleur pour tout sauf cinéma DV)",
+        "LG G5 (DV Gaming + 4x HDMI 2.1 + 165Hz)"
+      ]
+    },
+    {
+      "id": "tv-oled-panasonic-z95b-2025",
+      "marque": "Panasonic",
+      "modele": "Z95B OLED",
+      "annee": 2025,
+      "segment": "S3",
+      "type_dalle": "WOLED_MLA",
+      "resolution": "4K",
+      "tailles_pouces": [
+        55,
+        65,
+        77
+      ],
+      "frequence_hz": 144,
+      "hdmi_21": 2,
+      "hdmi_20": null,
+      "dolby_vision": true,
+      "dolby_vision_gaming": false,
+      "hdr10_plus": true,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": false,
+      "freesync": false,
+      "allm": true,
+      "vrr": true,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": 15.0,
+      "lum_hdr_peak_nits": 1400,
+      "lum_sdr_peak_nits": 400,
+      "os": "FireTV (Amazon)",
+      "audio_watts": 80,
+      "ecran": "Glossy",
+      "ambilight": null,
+      "prix_eur_par_taille": {
+        "55": [
+          1800,
+          2200
+        ],
+        "65": [
+          2400,
+          2900
+        ],
+        "77": [
+          3500,
+          4200
+        ]
+      },
+      "note_rtings": "notable mention (meilleur upscaling + PQ EOTF tracking)",
+      "usage_principal": "cinema_serie_reference",
+      "profil_ideal": "cinéphile professionnel / amateur de calibration cherchant la précision colorimétrique absolue",
+      "pour_qui": "Calibrateur professionnel, cinéphile exigeant cherchant le meilleur PQ EOTF tracking et upscaling du marché",
+      "eviter_si": "Gamers (input lag 15ms en 4K120, seulement 2 HDMI 2.1), acheteurs cherchant une interface TV complète (FireTV limité), budget gaming",
+      "verdict": "Le Z95B est la référence cinéma de Panasonic avec WOLED MLA, le meilleur PQ EOTF tracking testé par RTINGS, un upscaling supérieur à tous ses concurrents et un son 80W exceptionnel. Mais son input lag élevé en mode jeu, seulement 2 HDMI 2.1, interface FireTV et prix premium en font un choix très spécialisé cinéma pur. La Panasonic TV calibration = outil professionnel reconnu.",
+      "notes": "Panasonic = marque de référence calibration studio. Panasonic Professional Display Partnership avec Hollywood. FireTV depuis 2024 = régression d'interface mais amélioration en contenu Amazon. Input lag confirmé ~15ms = dédié cinéma uniquement.",
+      "points_forts": [
+        "meilleur PQ EOTF tracking RTINGS",
+        "upscaling #1 sur contenu basse qualité",
+        "Dolby Vision + HDR10+",
+        "son 80W référence",
+        "WOLED MLA lumineux",
+        "fidélité colorimétrique professionnelle"
+      ],
+      "points_faibles": [
+        "input lag 15ms en 4K120 (gaming déconseillé)",
+        "seulement 2 HDMI 2.1",
+        "FireTV interface basique",
+        "disponible qu'en 55\"-65\"-77\"",
+        "prix premium pour les specs gaming limitées"
+      ],
+      "alternatives_proches": [
+        "Sony Bravia 8 II (Google TV + QD-OLED + DV",
+        "input lag similaire)",
+        "LG G5 (gaming + luminosité supérieure)"
+      ]
+    },
+    {
+      "id": "tv-oled-philips-oled909-2024",
+      "marque": "Philips",
+      "modele": "OLED909",
+      "annee": 2024,
+      "segment": "S3",
+      "type_dalle": "WOLED_MLA",
+      "resolution": "4K",
+      "tailles_pouces": [
+        55,
+        65,
+        77
+      ],
+      "frequence_hz": 144,
+      "hdmi_21": 2,
+      "hdmi_20": null,
+      "dolby_vision": true,
+      "dolby_vision_gaming": false,
+      "hdr10_plus": false,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": false,
+      "freesync": true,
+      "allm": true,
+      "vrr": true,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": 6.0,
+      "lum_hdr_peak_nits": 1400,
+      "lum_sdr_peak_nits": 380,
+      "os": "GoogleTV",
+      "audio_watts": 95,
+      "ecran": "Glossy",
+      "ambilight": "oui_4_cotes",
+      "prix_eur_par_taille": {
+        "55": [
+          1800,
+          2200
+        ],
+        "65": [
+          2400,
+          2900
+        ],
+        "77": [
+          3500,
+          4300
+        ]
+      },
+      "note_rtings": null,
+      "usage_principal": "cinema_serie_experience_salon",
+      "profil_ideal": "fan d'Ambilight 4 côtés cherchant le meilleur OLED Philips pour l'expérience immersive",
+      "pour_qui": "Cinéphile cherchant expérience immersive Ambilight 4 côtés + WOLED MLA + son 95W premium",
+      "eviter_si": "Gamers (2 HDMI 2.1 seulement, pas de G-Sync/DVG), acheteurs cherchant le meilleur rapport Q/P (LG G5 supérieur)",
+      "verdict": "Le OLED909 est le meilleur OLED Philips disponible avec Ambilight 4 côtés, WOLED MLA lumineux, Google TV et un son 95W exceptionnel. L'Ambilight 4 côtés est une expérience unique dans le salon. Mais le manque de G-Sync et seulement 2 HDMI 2.1 limitent le gaming. Pour les cinéphiles recherchant une expérience sensorielle immersive sans équivalent = le OLED909 est incontournable.",
+      "notes": "L'Ambilight 4 côtés est la killer feature unique de Philips. Expérience très addictive pour les séries. Le son 95W place ce TV parmi les meilleurs sons intégrés du marché OLED. Google TV = accès à toutes les apps.",
+      "points_forts": [
+        "Ambilight 4 côtés unique",
+        "son 95W exceptionnel",
+        "WOLED MLA lumineux",
+        "Google TV",
+        "Dolby Vision",
+        "expérience salon immersive unique"
+      ],
+      "points_faibles": [
+        "seulement 2 HDMI 2.1",
+        "pas de G-Sync",
+        "pas de Dolby Vision Gaming",
+        "surface Glossy",
+        "moins lumineux que G5/S95F",
+        "pas de HDR10+"
+      ],
+      "alternatives_proches": [
+        "LG G5 (performance supérieure gaming+cinéma)",
+        "Philips OLED+959 (top Philips avec B&W audio)"
+      ]
+    },
+    {
+      "id": "tv-oled-lg-g4-2024",
+      "marque": "LG",
+      "modele": "OLED evo G4 MLA",
+      "annee": 2024,
+      "segment": "S3",
+      "type_dalle": "WOLED_MLA",
+      "resolution": "4K",
+      "tailles_pouces": [
+        55,
+        65,
+        77,
+        83,
+        97
+      ],
+      "frequence_hz": 144,
+      "hdmi_21": 4,
+      "hdmi_20": null,
+      "dolby_vision": true,
+      "dolby_vision_gaming": true,
+      "hdr10_plus": true,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": true,
+      "freesync": true,
+      "allm": true,
+      "vrr": true,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": 5.5,
+      "lum_hdr_peak_nits": 1500,
+      "lum_sdr_peak_nits": 450,
+      "os": "webOS 24",
+      "audio_watts": 60,
+      "ecran": "Glossy",
+      "ambilight": null,
+      "prix_eur_par_taille": {
+        "55": [
+          1700,
+          2200
+        ],
+        "65": [
+          2400,
+          3000
+        ],
+        "77": [
+          3500,
+          4300
+        ],
+        "83": [
+          5000,
+          6000
+        ],
+        "97": [
+          13000,
+          16000
+        ]
+      },
+      "note_rtings": "N/A (remplacé par G5 2025)",
+      "usage_principal": "gaming_cinema_mixte",
+      "profil_ideal": "flagship LG 2024 disponible en promo, légèrement inférieur au G5",
+      "pour_qui": "Acheteur qui trouve le G4 en promo significative vs G5, cherche MLA + 144Hz + 4x HDMI 2.1 + DV Gaming",
+      "eviter_si": "Acheteurs plein prix (G5 supérieur et souvent proche en prix), usage PC monitor intensif (pas de 165Hz)",
+      "verdict": "Le G4 avec dalle MLA était le flagship LG 2024 et reste une TV excellente. Légèrement inférieur au G5 sur luminosité, couleurs et max refresh (144Hz vs 165Hz) mais sa valeur en promo est réelle. 4x HDMI 2.1, Dolby Vision Gaming, HDR10+, webOS mature. Si disponible à -20-25% vs G5, excellent achat.",
+      "notes": "Le G5 améliore le G4 sur 3 points clés : luminosité SDR, couleurs (tandem RGB), 165Hz. Si le G4 est en promo à -25%, l'écart se justifie. Disponible en 97\" (dalle WOLED standard sur cette taille, pas MLA).",
+      "points_forts": [
+        "WOLED MLA lumineux",
+        "Dolby Vision Gaming",
+        "4x HDMI 2.1 144Hz",
+        "HDR10+",
+        "webOS 24",
+        "disponible en 97\""
+      ],
+      "points_faibles": [
+        "remplacé par G5 (moins lumineux",
+        "144Hz vs 165Hz)",
+        "surface Glossy",
+        "moins coloré que QD-OLED",
+        "modèle 2024 fin de stock"
+      ],
+      "alternatives_proches": [
+        "LG G5 (supérieur",
+        "voir si promo intéressante)",
+        "Samsung S95F (QD-OLED antireflet supérieur)"
+      ]
+    },
+    {
+      "id": "tv-oled-samsung-s95d-2024",
+      "marque": "Samsung",
+      "modele": "OLED S95D",
+      "annee": 2024,
+      "segment": "S3",
+      "type_dalle": "QD_OLED",
+      "resolution": "4K",
+      "tailles_pouces": [
+        55,
+        65,
+        77
+      ],
+      "frequence_hz": 144,
+      "hdmi_21": 4,
+      "hdmi_20": null,
+      "dolby_vision": false,
+      "dolby_vision_gaming": false,
+      "hdr10_plus": true,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": true,
+      "freesync": true,
+      "allm": true,
+      "vrr": true,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": 4.5,
+      "lum_hdr_peak_nits": 1700,
+      "lum_sdr_peak_nits": 500,
+      "os": "Tizen (Samsung)",
+      "audio_watts": 60,
+      "ecran": "Matte (antireflet avancé)",
+      "ambilight": null,
+      "one_connect_box": true,
+      "prix_eur_par_taille": {
+        "55": [
+          1800,
+          2200
+        ],
+        "65": [
+          2500,
+          3000
+        ],
+        "77": [
+          3500,
+          4200
+        ]
+      },
+      "note_rtings": "N/A (remplacé par S95F 2025)",
+      "usage_principal": "mixte_gaming_cinema",
+      "profil_ideal": "QD-OLED flagship 2024 avec antireflet, disponible en promo",
+      "pour_qui": "Acheteur cherchant le S95F à prix réduit ou voulant le One Connect Box au meilleur prix",
+      "eviter_si": "Fans de Dolby Vision, acheteurs plein prix (S95F 2025 est supérieur sur luminosité et refresh)",
+      "verdict": "Le S95D était le meilleur OLED de 2024 selon RTINGS - aujourd'hui remplacé par le S95F. Il partage les qualités QD-OLED : couleurs ultra-vives, antireflet matte, 4x HDMI 2.1, One Connect Box. Le S95F lui est supérieur en luminosité (~+10%) et refresh (165Hz vs 144Hz). En promo signifikative, le S95D reste excellent.",
+      "notes": "Le One Connect Box de Samsung = boîtier externe séparé pour tous les câbles, très pratique pour montage mural propre. S95D disponible à -25-30% vs S95F = bon achat en 55\"/65\".",
+      "points_forts": [
+        "QD-OLED couleurs ultra-vives",
+        "antireflet matte excellent",
+        "4x HDMI 2.1",
+        "One Connect Box",
+        "HDR10+",
+        "input lag ~4.5ms"
+      ],
+      "points_faibles": [
+        "pas de Dolby Vision",
+        "remplacé par S95F (moins lumineux",
+        "144Hz seulement)",
+        "disponible en 3 tailles seulement",
+        "modèle 2024"
+      ],
+      "alternatives_proches": [
+        "Samsung S95F (supérieur 2025)",
+        "LG G5 (Dolby Vision Gaming + webOS)"
+      ]
+    },
+    {
+      "id": "tv-oled-lg-g5-77-83-97",
+      "marque": "LG",
+      "modele": "OLED evo G5 - Grands formats",
+      "annee": 2025,
+      "segment": "S4",
+      "type_dalle": "WOLED_tandem_rgb",
+      "resolution": "4K",
+      "tailles_pouces": [
+        77,
+        83,
+        97
+      ],
+      "frequence_hz": 165,
+      "hdmi_21": 4,
+      "hdmi_20": null,
+      "dolby_vision": true,
+      "dolby_vision_gaming": true,
+      "hdr10_plus": true,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": true,
+      "freesync": true,
+      "allm": true,
+      "vrr": true,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": 5.1,
+      "input_lag_4k165_ms": 4.0,
+      "lum_hdr_peak_nits": 1850,
+      "lum_sdr_peak_nits": 570,
+      "os": "webOS 25",
+      "audio_watts": 60,
+      "ecran": "Glossy",
+      "ambilight": null,
+      "prix_eur_par_taille": {
+        "77": [
+          4000,
+          4800
+        ],
+        "83": [
+          5500,
+          6500
+        ],
+        "97": [
+          14000,
+          18000
+        ]
+      },
+      "note_rtings": "notable mention top 2026",
+      "usage_principal": "home_cinema_gaming_grand_salon",
+      "profil_ideal": "grand format flagship LG pour home cinema 77\"+ avec Dolby Vision Gaming",
+      "pour_qui": "Acheteur grand format cherchant le meilleur OLED LG avec Dolby Vision Gaming pour home cinema + gaming",
+      "eviter_si": "Salons avec forte luminosité directe (surface Glossy - préférer S95F), assis très près de l'écran (dithering visible), budget S3 (voir 77\" S90F/C5)",
+      "verdict": "En grand format 77\"+, le G5 rivalise directement avec le S95F avec un léger avantage sur la luminosité HDR des petits highlights et le Dolby Vision. Firmware désormais plus stable. Le 97\" utilise une dalle WOLED standard (pas tandem RGB) - vérifier absolument avant achat.",
+      "notes": "ATTENTION : 97\" = dalle WOLED classique (pas tandem RGB, pas MLA). Inférieur en luminosité aux 55/65/77/83\". Le 83\" reste tandem RGB. Vérifier spec avant achat 97\".",
+      "points_forts": [
+        "tandem RGB très lumineux",
+        "Dolby Vision Gaming + Xbox Series X",
+        "165Hz",
+        "4x HDMI 2.1",
+        "webOS 25",
+        "upscaling exceptionnel",
+        "grand format jusqu'à 97\""
+      ],
+      "points_faibles": [
+        "surface Glossy pour 77\"+",
+        "97\" sans tandem RGB (dale standard)",
+        "dithering visible de très près",
+        "prix 97\" stratosphérique",
+        "pas de DTS passthrough 2025"
+      ],
+      "alternatives_proches": []
+    },
+    {
+      "id": "tv-oled-samsung-s95f-65-77-83",
+      "marque": "Samsung",
+      "modele": "OLED S95F - Grands formats",
+      "annee": 2025,
+      "segment": "S3-S4",
+      "type_dalle": "QD_OLED",
+      "resolution": "4K",
+      "tailles_pouces": [
+        65,
+        77,
+        83
+      ],
+      "frequence_hz": 165,
+      "hdmi_21": 4,
+      "hdmi_20": null,
+      "dolby_vision": false,
+      "dolby_vision_gaming": false,
+      "hdr10_plus": true,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": true,
+      "freesync": true,
+      "allm": true,
+      "vrr": true,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": 4.0,
+      "input_lag_4k165_ms": 4.0,
+      "lum_hdr_peak_nits": 1800,
+      "lum_sdr_peak_nits": 500,
+      "os": "Tizen (Samsung)",
+      "audio_watts": 60,
+      "ecran": "Matte (antireflet avancé)",
+      "ambilight": null,
+      "one_connect_box": true,
+      "prix_eur_par_taille": {
+        "65": [
+          2700,
+          3200
+        ],
+        "77": [
+          3700,
+          4400
+        ],
+        "83": [
+          5000,
+          6000
+        ]
+      },
+      "note_rtings": "RTINGS #1 OLED 2026 - Best OLED TV",
+      "usage_principal": "tout_usage_reference",
+      "profil_ideal": "reference OLED 2025-2026 en grand format pour salon lumineux",
+      "pour_qui": "Acheteur cherchant le OLED de référence pour un grand salon avec lumière naturelle, gaming PC haute performance",
+      "eviter_si": "Fans absolus Dolby Vision, budget <2700€ (voir S90F), home cinema dédié obscur (préférer Bravia 8 II ou Z95B pour calibration)",
+      "verdict": "En 65\"/77\", le S95F représente l'état de l'art OLED en 2026. QD-OLED 165Hz avec le meilleur antireflet du marché (Matte coating), luminosité SDR et HDR de référence, 4x HDMI 2.1, One Connect Box pour câble management parfait. Meilleur OLED de RTINGS. Pour tout usage sauf Dolby Vision.",
+      "notes": "Le 77\" S95F reste le TV OLED le plus recommandé toutes catégories en 2026.",
+      "points_forts": [
+        "RTINGS #1",
+        "antireflet matte exceptionnel",
+        "QD-OLED couleurs ultra-vives",
+        "165Hz",
+        "4x HDMI 2.1",
+        "~4ms input lag",
+        "HDR10+",
+        "One Connect Box",
+        "pièce lumineuse exceptionnelle"
+      ],
+      "points_faibles": [
+        "jamais de Dolby Vision (Samsung)",
+        "Tizen vs webOS",
+        "83\" cher",
+        "pas de 97\""
+      ],
+      "alternatives_proches": []
+    },
+    {
+      "id": "tv-oled-lg-g6-2026",
+      "marque": "LG",
+      "modele": "OLED evo G6",
+      "annee": 2026,
+      "segment": "S4",
+      "type_dalle": "WOLED",
+      "resolution": "4K",
+      "tailles_pouces": [
+        55,
+        65,
+        77,
+        83,
+        97
+      ],
+      "frequence_hz": 165,
+      "hdmi_21": 4,
+      "hdmi_20": null,
+      "dolby_vision": true,
+      "dolby_vision_gaming": true,
+      "hdr10_plus": true,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": true,
+      "freesync": true,
+      "allm": true,
+      "vrr": true,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": 5.0,
+      "lum_hdr_peak_nits": 2000,
+      "lum_sdr_peak_nits": 620,
+      "os": "webOS 26",
+      "audio_watts": 60,
+      "ecran": "Glossy",
+      "ambilight": null,
+      "prix_eur_par_taille": {
+        "55": [
+          2500,
+          3000
+        ],
+        "65": [
+          3400,
+          4000
+        ],
+        "77": [
+          4500,
+          5500
+        ],
+        "83": [
+          6000,
+          7500
+        ],
+        "97": [
+          15000,
+          20000
+        ]
+      },
+      "note_rtings": "successeur G5 (tests en cours avril 2026)",
+      "usage_principal": "flagship_2026_tout_usage",
+      "profil_ideal": "le meilleur LG OLED 2026 avec antireflet amélioré et meilleure luminosité vs G5",
+      "pour_qui": "Early adopter cherchant le dernier flagship LG avec la meilleure gestion des reflets vs G5",
+      "eviter_si": "Acheteurs cherchant la stabilité (firmware 2026 nouveau, attendre retours), fans Samsung/S95F (antireflet matte reste supérieur)",
+      "verdict": "Le G6 est le successeur du G5 avec luminosité SDR encore supérieure et une meilleure gestion des reflets directs selon RTINGS. L'implémentation Dolby Vision présente quelques quirks vs G5. En 2026, si G5 en forte promo, le rapport Q/P G5 peut être meilleur. G6 = choix si budget pas contraignant.",
+      "notes": "Sorti en 2026 - tests RTINGS en cours au moment de la rédaction. Attendre retours firmware stabilisé avant achat.",
+      "points_forts": [
+        "meilleure luminosité SDR vs G5",
+        "meilleure gestion reflets directs",
+        "Dolby Vision Gaming",
+        "165Hz",
+        "4x HDMI 2.1",
+        "webOS 26"
+      ],
+      "points_faibles": [
+        "Dolby Vision implémentation quirky vs G5",
+        "firmware 2026 très récent (stabilité à confirmer)",
+        "surface Glossy moins bonne que matte S95F",
+        "prix flagship"
+      ],
+      "alternatives_proches": [
+        "Samsung S95F (matte + fiabilité)",
+        "LG G5 (si forte promo)"
+      ]
+    },
+    {
+      "id": "tv-oled-philips-oled959-2024",
+      "marque": "Philips",
+      "modele": "OLED+959 (OLED 959)",
+      "annee": 2024,
+      "segment": "S4",
+      "type_dalle": "WOLED_MLA",
+      "resolution": "4K",
+      "tailles_pouces": [
+        65,
+        77
+      ],
+      "frequence_hz": 144,
+      "hdmi_21": 2,
+      "hdmi_20": null,
+      "dolby_vision": true,
+      "dolby_vision_gaming": false,
+      "hdr10_plus": false,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": false,
+      "freesync": true,
+      "allm": true,
+      "vrr": true,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": 6.5,
+      "lum_hdr_peak_nits": 1400,
+      "lum_sdr_peak_nits": 400,
+      "os": "GoogleTV",
+      "audio_watts": 115,
+      "ecran": "Glossy",
+      "ambilight": "oui_4_cotes_bowers_wilkins",
+      "prix_eur_par_taille": {
+        "65": [
+          3500,
+          4500
+        ],
+        "77": [
+          5000,
+          6500
+        ]
+      },
+      "note_rtings": null,
+      "usage_principal": "home_cinema_experience_premium",
+      "profil_ideal": "audiophile cinéphile cherchant Ambilight + son Bowers & Wilkins + WOLED MLA",
+      "pour_qui": "Acheteur refusant de se séparer d'un home cinema externe pour un rendu son + Ambilight sans équivalent",
+      "eviter_si": "Gamers (2 HDMI 2.1, input lag 6.5ms, pas de G-Sync/DVG), acheteurs comparant performance pure image (G5/S95F supérieurs)",
+      "verdict": "Le OLED+959 est la pinnacle de Philips : Ambilight 4 côtés + système audio Bowers & Wilkins 115W + WOLED MLA + Google TV. L'expérience salon est unique et sans équivalent. Le son 115W B&W rivalise avec une soundbar d'entrée de gamme. Pour les amateurs de ciné immersif refusant les câbles partout = chef-d'oeuvre de design et d'expérience.",
+      "notes": "Le + désigne la collaboration Bowers & Wilkins. Uniquement disponible en 65\" et 77\". Son embarqué le plus impressionnant du marché OLED.",
+      "points_forts": [
+        "son 115W Bowers & Wilkins exceptionnel",
+        "Ambilight 4 côtés premium",
+        "WOLED MLA lumineux",
+        "Google TV",
+        "Dolby Vision",
+        "design premium"
+      ],
+      "points_faibles": [
+        "seulement 2 HDMI 2.1",
+        "pas de G-Sync/DVG",
+        "144Hz seulement",
+        "performance image inférieure à G5/S95F pour le prix",
+        "disponible en 65\" et 77\" seulement"
+      ],
+      "alternatives_proches": [
+        "LG G5 65\" + soundbar séparée (performance supérieure)",
+        "Philips OLED909 (moins cher",
+        "Ambilight 4 côtés)"
+      ]
+    },
+    {
+      "id": "tv-oled-lg-m4-2024",
+      "marque": "LG",
+      "modele": "OLED evo M4 Zero Connect",
+      "annee": 2024,
+      "segment": "S4",
+      "type_dalle": "WOLED_MLA",
+      "resolution": "4K",
+      "tailles_pouces": [
+        65,
+        77,
+        83,
+        97
+      ],
+      "frequence_hz": 144,
+      "hdmi_21": 4,
+      "hdmi_20": null,
+      "dolby_vision": true,
+      "dolby_vision_gaming": true,
+      "hdr10_plus": true,
+      "hdr10": true,
+      "hlg": true,
+      "gsync": true,
+      "freesync": true,
+      "allm": true,
+      "vrr": true,
+      "dolby_atmos": true,
+      "input_lag_4k120_ms": 5.5,
+      "lum_hdr_peak_nits": 1500,
+      "lum_sdr_peak_nits": 450,
+      "os": "webOS 24",
+      "audio_watts": 60,
+      "ecran": "Glossy",
+      "ambilight": null,
+      "zero_connect_box": true,
+      "prix_eur_par_taille": {
+        "65": [
+          4000,
+          5000
+        ],
+        "77": [
+          5500,
+          7000
+        ],
+        "83": [
+          7000,
+          9000
+        ],
+        "97": [
+          15000,
+          20000
+        ]
+      },
+      "note_rtings": null,
+      "usage_principal": "installation_premium_zero_cable",
+      "profil_ideal": "installation murale haut de gamme sans aucun câble au TV",
+      "pour_qui": "Architecte d'intérieur / installateur cherchant un TV mural totalement sans câble avec Zero Connect Box 4K120 sans fil",
+      "eviter_si": "Acheteurs cherchant performance image pure (G5 supérieur), gamers voulant 165Hz (144Hz max), budget normal (G5/S95F supérieurs en image)",
+      "verdict": "Le M4 est unique pour son Zero Connect Box - un boîtier externe qui transmet 4K@120Hz sans fil vers le TV. Aucun câble au TV = installation murale parfaite. Performance image identique au G4 (même dalle MLA). Pour les projets d'installation haut de gamme et design intérieur, c'est inégalé. Prix premium justifié uniquement par le sans-fil.",
+      "notes": "M4 remplacé par M5 en 2025 (non encore reviewé). Le Zero Connect Box inclut 4x HDMI 2.1 + transmission sans fil 4K120. Latence sans fil non mesurable différemment du filaire par RTINGS. Usage professionnel/résidentiel haut de gamme.",
+      "points_forts": [
+        "Zero Connect Box sans fil (unique marché)",
+        "installation murale sans aucun câble",
+        "WOLED MLA lumineux",
+        "DV Gaming",
+        "4x HDMI 2.1",
+        "webOS 24",
+        "disponible en 97\""
+      ],
+      "points_faibles": [
+        "premium de prix uniquement pour le sans-fil",
+        "performance image identique G4 (G5 supérieur)",
+        "144Hz seulement",
+        "modèle 2024",
+        "surface Glossy"
+      ],
+      "alternatives_proches": [
+        "LG G5 (performance image supérieure + 165Hz à prix souvent inférieur)",
+        "Samsung S95F (antireflet supérieur)"
+      ]
+    }
+  ]
+}

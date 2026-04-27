@@ -1,0 +1,163 @@
+/**
+ * TROVIIO — Design Tokens CSS
+ * @version 1.0
+ * @since 2026-04-27
+ * @description Variables CSS centralisées pour Troviio.
+ * RENOMMER CE FICHIER EN : troviio-design-tokens.css
+ * Importer dans globals.css ou layout.tsx.
+ */
+
+/* ============================================================ */
+/* TROVIIO DESIGN TOKENS                                        */
+/* ============================================================ */
+
+:root {
+
+  /* ── Couleurs Primaires ──────────────────────────────── */
+  --coral:            #FF6B5F;
+  --coral-dark:       #E5554A;
+  --coral-light:      #FF9A92;
+  --mint:             #3ED6A3;
+  --mint-dark:        #1BAE7D;
+  --blue:             #4257FF;
+  --blue-light:       #8C98FF;
+
+  /* ── Couleurs Neutres ────────────────────────────────── */
+  --cream:            #FFF7ED;
+  --ink:              #161827;
+  --night:            #0E1020;
+  --gray-100:         #EFE3D6;
+  --gray-300:         #B0AAA2;
+  --gray-500:         #7F7A76;
+
+  /* ── Couleurs Sémantiques ────────────────────────────── */
+  --amber:            #FFB347;
+  --success:          var(--mint);
+  --warning:          var(--amber);
+  --error:            var(--coral);
+
+  /* ── Signature ii bicolore ───────────────────────────── */
+  --ii-first:         #FF6B5F;   /* Premier i = Coral */
+  --ii-second:        #3ED6A3;   /* Second i = Mint   */
+
+  /* ── Gradients ───────────────────────────────────────── */
+  --grad-hero:   linear-gradient(135deg, #FF6B5F 0%, #FFB020 42%, #3ED6A3 100%);
+  --grad-coral:  linear-gradient(135deg, #FF6B5F 0%, #FFB067 100%);
+  --grad-mint:   linear-gradient(135deg, #3ED6A3 0%, #9AF7D4 100%);
+  --grad-blue:   linear-gradient(135deg, #4257FF 0%, #8A7CFF 100%);
+
+  /* ── Typographie ─────────────────────────────────────── */
+  --font-display: 'Sora', sans-serif;
+  --font-sans:    'Inter', sans-serif;
+  --font-score:   'Nunito', sans-serif;
+
+  /* ── Border Radius ───────────────────────────────────── */
+  --radius-card:    24px;
+  --radius-button:  14px;
+  --radius-pill:    9999px;
+  --radius-badge:   8px;
+  --radius-toast:   12px;
+  --radius-input:   12px;
+  --radius-modal:   20px;
+
+  /* ── Shadows ─────────────────────────────────────────── */
+  --shadow-card:          0 12px 32px -8px rgba(22, 24, 39, 0.12);
+  --shadow-card-hover:    0 24px 64px -16px rgba(22, 24, 39, 0.18),
+                          0 0 30px rgba(255, 107, 95, 0.22);
+  --shadow-btn-primary:   0 4px 16px rgba(255, 107, 95, 0.3);
+  --shadow-btn-hover:     0 8px 24px rgba(255, 107, 95, 0.38);
+  --shadow-toast:         0 8px 24px rgba(14, 16, 32, 0.2);
+
+  /* ── Animations ──────────────────────────────────────── */
+  --ease-score:      cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-toast:      cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-score:       0.8s;
+  --dur-card:        0.4s;
+  --dur-toast:       0.3s;
+  --dur-hover:       0.15s;
+  --dur-glow:        2.4s;
+}
+
+/* ── Dark Mode ─────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cream:      #0E1020;
+    --ink:        #FFF7ED;
+    --gray-100:   #1E2035;
+  }
+}
+
+/* ── Utilitaires ───────────────────────────────────────────── */
+
+.grad-text {
+  background: var(--grad-hero);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.ii-coral { color: var(--ii-first);  }
+.ii-mint  { color: var(--ii-second); }
+
+.btn-troviio-primary {
+  background: var(--grad-coral);
+  color: white;
+  border-radius: var(--radius-button);
+  box-shadow: var(--shadow-btn-primary);
+  transition: all var(--dur-hover) ease;
+  font-family: var(--font-sans);
+  font-weight: 600;
+}
+
+.btn-troviio-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-btn-hover);
+}
+
+.card-troviio {
+  border-radius: var(--radius-card);
+  border: 1px solid var(--gray-100);
+  box-shadow: var(--shadow-card);
+  background: white;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.card-troviio:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* ── Keyframes ─────────────────────────────────────────────── */
+
+@keyframes troviio-score-fill {
+  from { stroke-dashoffset: var(--circ);   }
+  to   { stroke-dashoffset: var(--offset); }
+}
+
+@keyframes troviio-fill-in {
+  from { width: 0; }
+}
+
+@keyframes troviio-card-slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes troviio-glow-pulse {
+  0%, 100% { transform: scale(1);   opacity: 0.2;  }
+  50%       { transform: scale(1.1); opacity: 0.35; }
+}
+
+@keyframes troviio-toast-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+.score-fill {
+  animation: troviio-score-fill var(--dur-score) var(--ease-score) forwards;
+  stroke-dashoffset: var(--circ);
+}
+
+.progress-fill {
+  animation: troviio-fill-in var(--dur-score) var(--ease-score) forwards;
+}

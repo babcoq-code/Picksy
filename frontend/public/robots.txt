@@ -1,0 +1,21 @@
+User-agent: *
+Disallow: /api/
+Disallow: /_next/static/
+Disallow: /admin/
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Scrapy
+Disallow: /
+
+Sitemap: https://picksy.babcoq.tech/sitemap.xml
