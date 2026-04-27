@@ -2,11 +2,34 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  generateBuildId: () => `troviio-${Date.now()}`,
   async rewrites() {
     return [
       {
         source: "/api/:path*",
         destination: `${process.env.API_BASE_URL ?? "http://localhost:8000"}/api/:path*`,
+      },
+    ];
+  },
+  async headers() {
+    return [
+      {
+        source: "/",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "no-cache, no-store, must-revalidate",
+          },
+        ],
+      },
+      {
+        source: "/_next/static/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=0, must-revalidate",
+          },
+        ],
       },
     ];
   },

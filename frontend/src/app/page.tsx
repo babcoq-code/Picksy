@@ -2,42 +2,50 @@
 
 import { useState, useRef, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { chatWithAI, subscribeNewsletter, fetchTopProducts } from "@/lib/api";
-import type { Product } from "@/lib/types";
+import { chatWithAI, subscribeNewsletter } from "@/lib/api";
 import { ScoreRing } from "@/components/ScoreRing";
 import { ThinkingIndicator } from "@/components/chat/ThinkingIndicator";
 import CategoryGrid from "@/components/home/CategoryGrid";
 import { STORAGE_KEYS } from "@/lib/storage-keys";
 import { useConversationHistory } from "@/hooks/useConversationHistory";
-import { CHAT_CATEGORIES, getCategoryBySlug, type ChatCategory, type ChatCategorySlug } from "@/app/constants/chat-categories";
+import {
+  getCategoryBySlug,
+  type ChatCategory,
+} from "@/app/constants/chat-categories";
+import { ChatHeader } from "@/components/chat/ChatHeader";
 
+const ChatBubble = dynamic(() => import("@/components/ChatBubble"), { ssr: false });
 
-// Fallback simple pour générer un ID unique (pas de dépendance uuid)
+// Génère un ID de session unique sans dépendance externe
 function genId(): string {
   return `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
 }
 
-const ChatBubble = dynamic(() => import("@/components/ChatBubble"), { ssr: false });
-const ProductCard = dynamic(() => import("@/components/ProductCard"), { ssr: false });
-
 export default function HomePage() {
   const [message, setMessage] = useState("");
-  const [chat, setChat] = useState<{ role: "user" | "ai"; text: string; options?: string[]; result_id?: string | null }[]>([]);
+  const [chat, setChat] = useState<
+    {
+      role: "user" | "ai";
+      text: string;
+      options?: string[];
+      result_id?: string | null;
+    }[]
+  >([]);
   const [history, setHistory] = useState<{ role: string; content: string }[]>([]);
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
-  const [products, setProducts] = useState<Product[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<ChatCategory | null>(null);
+
   const aiOpeningQuestionRef = useRef<string | null>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const restored = useRef(false);
 
   const { upsertEntry, setResultId } = useConversationHistory();
-  const sessionIdRef = useRef<string>(genId());
+  const sessionIdRef = useRef(genId());
 
-  // Restaurer l'historique depuis localStorage (quand on vient de "Affiner")
+  // ── Restaurer l'historique depuis localStorage (retour depuis "Affiner") ──
   useEffect(() => {
     if (restored.current) return;
     restored.current = true;
@@ -50,14 +58,14 @@ export default function HomePage() {
         if (Array.isArray(parsedHistory) && parsedHistory.length > 0) {
           setHistory(parsedHistory);
           setChat(parsedChat);
-          // Nettoyer localStorage après restauration
-        localStorage.removeItem(STORAGE_KEYS.HISTORY);
+          localStorage.removeItem(STORAGE_KEYS.HISTORY);
           localStorage.removeItem(STORAGE_KEYS.CHAT);
         }
       }
     } catch {}
   }, []);
 
+  // ── Scroll automatique vers le bas du chat ──
   useEffect(() => {
     const chatSection = document.getElementById("chat");
     if (!chatSection) return;
@@ -68,19 +76,19 @@ export default function HomePage() {
     const chatEndElement = chatEndRef.current;
     if (!chatEndElement) return;
 
-    const container = chatEndElement.closest("[data-chat-scroll]") as HTMLElement | null
-      ?? chatEndElement.parentElement;
+    const container =
+      (chatEndElement.closest("[data-chat-scroll]") as HTMLElement | null) ??
+      chatEndElement.parentElement;
     if (!container) return;
 
     const isNearBottom =
       container.scrollHeight - container.scrollTop - container.clientHeight < 80;
-
     if (isNearBottom) {
       chatEndElement.scrollIntoView({ behavior: "smooth", block: "end" });
     }
   }, [chat]);
 
-  // Sauvegarder l'historique dans sessionStorage pour le récupérer sur la page résultat
+  // ── Sauvegarder dans sessionStorage (récupéré par la page résultats) ──
   useEffect(() => {
     if (history.length > 0) {
       try {
@@ -90,22 +98,17 @@ export default function HomePage() {
     }
   }, [history, chat]);
 
+  // ── Envoi d'un message ──
   const handleSend = async (overrideMsg?: string) => {
     const userMsg = (overrideMsg ?? message).trim();
     if (!userMsg || loading) return;
     setMessage("");
 
-    // Construire un historyToSend incluant le message d'ouverture IA si présent
-    let historyToSend = history;
-    if (aiOpeningQuestionRef.current) {
-      historyToSend = [
-        { role: "assistant", content: aiOpeningQuestionRef.current },
-        ...history,
-      ];
-      aiOpeningQuestionRef.current = null; // ne l'injecter qu'une fois
-    }
+    // Ne pas injecter la question d'ouverture dans l'historique API
+    // L'IA a déjà l'exemple dans son SYSTEM_PROMPT — le frontend l'affiche localement
+    const historyToSend = history;
 
-    // Sauvegarder dans l'historique dès le premier message user
+    // Créer/mettre à jour l'entrée dans l'historique de conversations
     if (history.length === 0) {
       upsertEntry({
         id: sessionIdRef.current,
@@ -119,14 +122,19 @@ export default function HomePage() {
 
     setChat((prev) => [...prev, { role: "user", text: userMsg }]);
     setLoading(true);
+
     try {
       const res = await chatWithAI(userMsg, historyToSend);
       const aiText = res.reply;
 
-      // ✅ AJOUT : stocker result_id et options dans le message IA
       setChat((prev) => [
         ...prev,
-        { role: "ai", text: aiText, options: res.options ?? [], result_id: res.result_id ?? null },
+        {
+          role: "ai",
+          text: aiText,
+          options: res.options ?? [],
+          result_id: res.result_id ?? null,
+        },
       ]);
       setHistory((prev) => [
         ...prev,
@@ -134,33 +142,44 @@ export default function HomePage() {
         { role: "assistant", content: aiText },
       ]);
 
-      // Si un result_id est retourné, lier à l'historique
+      // Lier le result_id à la session historique
       if (res.result_id) {
         setResultId(sessionIdRef.current, res.result_id);
       }
     } catch {
       setChat((prev) => [
         ...prev,
-        { role: "ai", text: "Désolé, une erreur s'est produite. Réessaie !", result_id: null },
+        {
+          role: "ai",
+          text: "Désolé, une erreur s'est produite. Réessaie !",
+          result_id: null,
+        },
       ]);
     } finally {
       setLoading(false);
     }
   };
 
+  // ── Inscription newsletter ──
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.includes("@")) return;
-    try { await subscribeNewsletter(email); } catch {}
+    try {
+      await subscribeNewsletter(email);
+    } catch {}
     setSubscribed(true);
   };
 
+  // ── Sélection d'une catégorie → IA parle en premier (0 latence) ──
   const handleCategorySelect = (slug: string) => {
     const cat = getCategoryBySlug(slug);
     if (!cat) return;
+
     setSelectedCategory(cat);
     setHistory([]);
+    sessionIdRef.current = genId(); // Nouvelle session à chaque recherche
     aiOpeningQuestionRef.current = cat.openingQuestion;
+
     setChat([
       {
         role: "ai",
@@ -169,396 +188,473 @@ export default function HomePage() {
         result_id: null,
       },
     ]);
-    // Scroll INTERNE du chat uniquement — pas de scrollIntoView sur la page
-    const chatSection = document.getElementById("chat");
-    if (chatSection) {
-      const container = chatSection.querySelector(".overflow-y-auto");
-      if (container) {
-        container.scrollTop = 0;
-      }
-    }
+
+    // Scroll vers le chat
     setTimeout(() => {
-      const chatSection = document.getElementById("chat");
-      chatSection?.scrollIntoView({ behavior: "smooth", block: "start" });
+      document.getElementById("chat")?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
   };
 
+  // ── Reset vers la grille de catégories ──
   const handleReset = () => {
     setSelectedCategory(null);
     setChat([]);
     setHistory([]);
     setMessage("");
     aiOpeningQuestionRef.current = null;
+    sessionIdRef.current = genId();
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const loadTop = async (cat: string) => {
-    try { setProducts(await fetchTopProducts(cat)); } catch {}
-  };
-
   return (
-    <div className="min-h-screen bg-night text-white">
-
-      {/* ── HEADER ── */}
-      <header className="sticky top-0 z-50 bg-night/80 backdrop-blur-xl border-b border-white/5">
-        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-          <img src="/logo-dark.svg" alt="Troviio" style={{ height: 34 }} />
-          <span className="text-xs text-muted hidden sm:block tracking-wide uppercase">Le conseiller maison</span>
+    <main
+      className="min-h-screen"
+      style={{ background: "#0E1020", fontFamily: "'Inter', sans-serif" }}
+    >
+      {/* ══ HEADER ══ */}
+      <header
+        className="sticky top-0 z-50 border-b backdrop-blur-md"
+        style={{
+          borderColor: "rgba(255,255,255,0.08)",
+          background: "rgba(14,16,32,0.85)",
+        }}
+      >
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+          <div className="flex items-center gap-2">
+            <img src="/logo-icon.svg" alt="Troviio" className="h-7 w-7" />
+            <span
+              className="text-lg font-bold text-white"
+              style={{ fontFamily: "'Sora', sans-serif" }}
+            >
+              Troviio
+            </span>
+          </div>
+          <nav className="flex items-center gap-4 text-sm text-white/60">
+            <a href="#adn" className="transition-colors hover:text-white">
+              La méthode
+            </a>
+            <a href="/a-propos" className="transition-colors hover:text-white">
+              À propos
+            </a>
+          </nav>
         </div>
       </header>
 
       {/* ══════════════════════════════════════
           1. HERO
       ══════════════════════════════════════ */}
-      <section className="relative overflow-hidden pt-20 pb-16 px-4">
+      <section className="relative overflow-hidden px-4 pb-16 pt-20 sm:px-6">
         {/* Glow background */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-blueberry/20 blur-[120px] rounded-full" />
-        </div>
-
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-
+        <div
+          className="pointer-events-none absolute left-1/2 top-0 h-[600px] w-[900px] -translate-x-1/2 opacity-20"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, #FF6B5F 0%, #4257FF 50%, transparent 70%)",
+          }}
+        />
+        <div className="relative mx-auto max-w-4xl text-center">
           {/* Badges */}
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm font-medium backdrop-blur-sm">
-              <span className="w-2 h-2 rounded-full bg-mint animate-pulse" />
-              <span className="text-white/80">IA nourrie par des milliers d&apos;avis — guidée par TA vie</span>
-            </div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm font-medium backdrop-blur-sm">
-              <span className="text-white/80">Zéro biais. Transparence totale. Zéro pression.</span>
-            </div>
+          <div className="mb-6 flex flex-wrap justify-center gap-2">
+            <span
+              className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold text-white/80"
+              style={{ borderColor: "rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.06)" }}
+            >
+              IA nourrie par des milliers d'avis — guidée par TA vie
+            </span>
+            <span
+              className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold"
+              style={{
+                borderColor: "rgba(62,214,163,0.30)",
+                background: "rgba(62,214,163,0.08)",
+                color: "#3ED6A3",
+              }}
+            >
+              Zéro biais · Transparence totale · Zéro pression
+            </span>
           </div>
 
           {/* H1 */}
           <h1
-            className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.1] mb-3 tracking-tight"
-            style={{ fontFamily: "Sora, Inter, sans-serif" }}
+            className="mb-4 text-5xl font-bold leading-tight tracking-tight text-white sm:text-6xl"
+            style={{ fontFamily: "'Sora', sans-serif" }}
           >
-            <span style={{
-              background: "linear-gradient(135deg, #FF6B5F 0%, #FFB020 42%, #3ED6A3 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}>
-              Pas le meilleur.
-            </span>
-            <br />Le tien.
+            Pas le meilleur.&nbsp;&nbsp;
+            <span style={{ color: "#FF6B5F" }}>Le tien.</span>
           </h1>
 
           {/* Ligne secondaire */}
-          <p className="text-base sm:text-lg text-muted font-medium mb-6 tracking-wide">
+          <p className="mb-3 text-xl font-medium text-white/60">
             Les vendeurs vendent. Troviio trouve.
           </p>
 
           {/* Sous-titre */}
-          <p className="text-lg text-muted max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="mx-auto max-w-2xl text-base text-white/50">
             Dis-nous comment tu vis, ce que tu veux éviter, ton budget et tes contraintes.
-            Troviio croise ta vraie vie avec des milliers d&apos;avis pour te donner une réponse claire — pas une liste.
+            Troviio croise ta vraie vie avec des milliers d'avis pour te donner une réponse
+            claire — pas une liste.
           </p>
         </div>
       </section>
 
       {/* ══════════════════════════════════════
-          1.5 CATALOGUE CATÉGORIES
+          1.5 GRILLE CATÉGORIES
       ══════════════════════════════════════ */}
-      <CategoryGrid onSelect={handleCategorySelect} selectedSlug={selectedCategory?.slug ?? null} />
+      <section className="px-4 pb-8 sm:px-6">
+        <div className="mx-auto max-w-6xl">
+          <CategoryGrid
+            onSelect={handleCategorySelect}
+            selectedSlug={selectedCategory?.slug ?? null}
+          />
+        </div>
+      </section>
 
-      {/* ── CHAT ── */}
-      <section id="chat" className="max-w-2xl mx-auto px-4 mb-16 scroll-mt-24">
-        <div className="bg-surface rounded-2xl border border-white/5 overflow-hidden shadow-2xl">
+      {/* ══════════════════════════════════════
+          2. CHAT
+      ══════════════════════════════════════ */}
+      <section
+        id="chat"
+        className="mx-auto max-w-2xl px-4 pb-12 sm:px-6"
+      >
+        {/* ChatHeader conditionnel */}
+        {selectedCategory && (
+          <ChatHeader
+            category={selectedCategory}
+            historyLength={history.length}
+            onReset={handleReset}
+          />
+        )}
 
-          {selectedCategory && (
-            <div className="flex items-center justify-between px-1 mb-2">
-              <button
-                onClick={handleReset}
-                className="text-xs text-[#8B8FA3] hover:text-white/60 transition-colors"
-                style={{ fontFamily: "'Inter', sans-serif" }}
-              >
-                ← Autre catégorie
-              </button>
-              <span
-                className="text-xs font-medium"
-                style={{ color: selectedCategory.color, fontFamily: "'Inter', sans-serif" }}
-              >
-                {selectedCategory.emoji} {selectedCategory.label}
-              </span>
-            </div>
-          )}
-
-          {/* Messages */}
-          <div className="h-[420px] overflow-y-auto p-5 space-y-4 scrollbar-thin scrollbar-thumb-surface-light" data-chat-scroll>
+        {/* Zone messages */}
+        <div
+          data-chat-scroll
+          className="overflow-y-auto rounded-3xl border"
+          style={{
+            minHeight: "320px",
+            maxHeight: "520px",
+            background: "rgba(255,255,255,0.03)",
+            borderColor: "rgba(255,255,255,0.08)",
+          }}
+        >
+          <div className="flex flex-col gap-4 p-4">
             {chat.length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-full text-center gap-4">
-                <div className="text-5xl">🛍️</div>
-                <div>
-                  <p className="font-semibold text-white text-base mb-1">Choisis une catégorie ci-dessus</p>
-                  <p className="text-sm text-muted">Troviio t&apos;accompagne étape par étape</p>
-                </div>
+              /* ── État vide ── */
+              <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
+                <span className="text-4xl">🛍️</span>
+                <p className="text-sm font-semibold text-white/60">
+                  Choisis une catégorie ci-dessus
+                </p>
+                <p className="text-xs text-white/30">
+                  Troviio t'accompagne étape par étape
+                </p>
               </div>
             ) : (
               <>
                 {(() => {
-                // Chips UNIQUEMENT sur le dernier message IA
-                const lastAiIndex = chat.reduce(
-                  (lastIdx, msg, idx) => (msg.role === "ai" ? idx : lastIdx),
-                  -1
-                );
-                return chat.map((msg, i) => {
-                  const isLastAiMessage = i === lastAiIndex && msg.role === "ai";
-                  return (
-                    <div key={i}>
+                  // Chips uniquement sur le dernier message IA
+                  const lastAiIndex = chat.reduce(
+                    (lastIdx, msg, idx) => (msg.role === "ai" ? idx : lastIdx),
+                    -1
+                  );
+                  return chat.map((msg, i) => {
+                    const isLastAiMessage = i === lastAiIndex && msg.role === "ai";
+                    return (
                       <ChatBubble
+                        key={i}
                         role={msg.role}
                         text={msg.text}
-                        options={msg.options}
-                        result_id={msg.result_id}
-                        isLoading={loading && isLastAiMessage}
-                        isLastAiMessage={isLastAiMessage}
-                        onSuggestionSelect={isLastAiMessage ? handleSend : undefined}
+                        options={isLastAiMessage ? (msg.options ?? []) : []}
+                        result_id={msg.result_id ?? null}
+                        onSuggestionSelect={msg.role === "ai" ? handleSend : undefined}
                       />
-                    </div>
-                  );
-                });
-              })()}
-                {loading && (
-                  <div className="flex justify-start px-2">
-                    <ThinkingIndicator />
-                  </div>
-                )}
+                    );
+                  });
+                })()}
+
+                {loading && <ThinkingIndicator />}
                 <div ref={chatEndRef} />
               </>
             )}
           </div>
-
-          {/* Input */}
-          <div className="border-t border-white/5 p-4">
-            <form className="flex gap-2" onSubmit={(e) => { e.preventDefault(); handleSend(); }}>
-              <input
-                ref={inputRef}
-                type="text"
-                placeholder="Décris ce que tu cherches, même en vrac…"
-                className="flex-1 bg-surface-light rounded-xl px-4 py-3 text-sm outline-none border border-white/8 focus:border-coral/50 focus:ring-1 focus:ring-coral/30 transition-all text-white placeholder-muted"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                disabled={loading}
-              />
-              <button
-                type="submit"
-                disabled={loading || !message.trim()}
-                style={{ background: "linear-gradient(135deg, #FF6B5F, #E5554A)", boxShadow: "0 4px 16px rgba(255,107,95,0.3)" }}
-                className="text-white px-5 py-3 rounded-xl font-semibold transition-all text-sm whitespace-nowrap disabled:opacity-40 hover:-translate-y-0.5"
-              >
-                {loading ? "⏳" : "Trouve le mien ✨"}
-              </button>
-            </form>
-            <p className="text-xs text-muted text-center mt-2">
-              Exemple : &ldquo;Un aspirateur robot pour 70m² avec un chien, sans y passer mes soirées.&rdquo;
-            </p>
-          </div>
         </div>
 
-        {/* Score ring démo */}
-        <div className="flex flex-col items-center gap-2 mt-4">
-          <div className="flex items-center gap-3 text-sm text-muted">
-            <ScoreRing score={94} size="sm" />
-            <span>Précision moyenne des recommandations</span>
-          </div>
-          <p className="text-xs text-muted">Gratuit. Sans inscription. Recommandations indépendantes.</p>
+        {/* ── Input ── */}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSend();
+          }}
+          className="mt-3 flex gap-2"
+        >
+          <input
+            ref={inputRef}
+            type="text"
+            value={message}
+            placeholder="Réponds ou précise ta recherche…"
+            onChange={(e) => setMessage(e.target.value)}
+            disabled={loading}
+            className="flex-1 rounded-full border px-4 py-3 text-sm text-white outline-none transition placeholder:text-white/30 focus:border-[#3ED6A3]"
+            style={{
+              background: "rgba(255,255,255,0.06)",
+              borderColor: "rgba(255,255,255,0.12)",
+            }}
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            className="flex-shrink-0 rounded-full px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 disabled:opacity-50"
+            style={{
+              background: loading
+                ? "rgba(255,255,255,0.1)"
+                : "linear-gradient(135deg, #FF6B5F, #FFB020)",
+              boxShadow: loading ? "none" : "0 8px 24px rgba(255,107,95,0.35)",
+            }}
+          >
+            {loading ? "⏳" : "Trouve le mien ✨"}
+          </button>
+        </form>
+
+        <p className="mt-2 text-center text-xs text-white/30">
+          Exemple : "Un aspirateur robot pour 70m² avec un chien, sans y passer mes soirées."
+        </p>
+      </section>
+
+      {/* ══ Score ring démo ══ */}
+      <section className="pb-12 text-center">
+        <div className="inline-flex flex-col items-center gap-2">
+          <ScoreRing score={94} size={72} />
         </div>
+        <p className="mt-4 text-xs text-white/30">
+          Gratuit · Sans inscription · Recommandations indépendantes
+        </p>
       </section>
 
       {/* ══════════════════════════════════════
-          2. ADN PICKSY
+          3. ADN TROVIIO
       ══════════════════════════════════════ */}
-      <section className="max-w-6xl mx-auto px-4 mb-20">
-        <div className="text-center mb-10">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-3" style={{ fontFamily: "Sora, sans-serif" }}>
-            Troviio ne compare pas des produits.<br />
-            <span style={{
-              background: "linear-gradient(135deg, #FF6B5F, #3ED6A3)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}>Troviio comprend ta vie.</span>
+      <section
+        id="adn"
+        className="border-t px-4 py-20 sm:px-6"
+        style={{ borderColor: "rgba(255,255,255,0.06)" }}
+      >
+        <div className="mx-auto max-w-4xl">
+          <h2
+            className="mb-4 text-center text-3xl font-bold text-white sm:text-4xl"
+            style={{ fontFamily: "'Sora', sans-serif" }}
+          >
+            Troviio ne compare pas des produits.{" "}
+            <span style={{ color: "#FF6B5F" }}>Troviio comprend ta vie.</span>
           </h2>
-          <p className="text-muted max-w-xl mx-auto">
-            Un bon achat n&apos;est pas universel. Il dépend de ton espace, ton budget, tes contraintes et ce que tu refuses de supporter.
+          <p className="mb-12 text-center text-base text-white/50">
+            Un bon achat n'est pas universel. Il dépend de ton espace, ton budget, tes
+            contraintes et ce que tu refuses de supporter.
           </p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-          {[
-            {
-              icon: "🔍",
-              title: "Tes contraintes d'abord",
-              text: "Surface, bruit, animaux, enfants, place disponible, budget, usage réel : Troviio commence par ce qui compte chez toi.",
-            },
-            {
-              icon: "📊",
-              title: "Des milliers d'avis ensuite",
-              text: "Troviio lit les signaux faibles : les défauts qui reviennent, les usages où le produit déçoit, les profils pour qui ça marche vraiment.",
-            },
-            {
-              icon: "✅",
-              title: "Une réponse, pas une liste",
-              text: "Tu ne viens pas chercher 47 options. Tu viens chercher le choix qui a le plus de chances de marcher chez toi.",
-            },
-          ].map((b) => (
-            <div key={b.title} className="bg-surface rounded-2xl border border-white/5 p-6">
-              <div className="text-3xl mb-3">{b.icon}</div>
-              <h3 className="font-bold text-white mb-2" style={{ fontFamily: "Sora, sans-serif" }}>{b.title}</h3>
-              <p className="text-sm text-muted leading-relaxed">{b.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════
-          3. COMMENT PICKSY TROUVE LE TIEN
-      ══════════════════════════════════════ */}
-      <section className="max-w-3xl mx-auto px-4 mb-20">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-10 text-center" style={{ fontFamily: "Sora, sans-serif" }}>
-          Comment Troviio trouve le tien
-        </h2>
-        <div className="space-y-6">
-          {[
-            {
-              n: "1",
-              title: "Tu décris ta vraie situation",
-              text: "Budget, pièce, usage, contraintes, préférences et irritants.",
-            },
-            {
-              n: "2",
-              title: "Troviio lit entre les lignes",
-              text: "Troviio croise les avis, les défauts récurrents et les usages réels sur des milliers de produits.",
-            },
-            {
-              n: "3",
-              title: "Tu obtiens une recommandation claire",
-              text: "Pas une liste infinie. Un choix expliqué, avec les raisons de l'acheter ou de l'éviter.",
-            },
-          ].map((step) => (
-            <div key={step.n} className="flex gap-5 items-start bg-surface rounded-2xl border border-white/5 p-6">
+          <div className="grid gap-6 sm:grid-cols-3">
+            {[
+              {
+                icon: "🔍",
+                title: "Tes contraintes d'abord",
+                text: "Surface, bruit, animaux, enfants, place disponible, budget, usage réel : Troviio commence par ce qui compte chez toi.",
+              },
+              {
+                icon: "📊",
+                title: "Des milliers d'avis ensuite",
+                text: "Troviio lit les signaux faibles : les défauts qui reviennent, les usages où le produit déçoit, les profils pour qui ça marche vraiment.",
+              },
+              {
+                icon: "✅",
+                title: "Une réponse, pas une liste",
+                text: "Tu ne viens pas chercher 47 options. Tu viens chercher le choix qui a le plus de chances de marcher chez toi.",
+              },
+            ].map((b) => (
               <div
-                className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg"
-                style={{ background: "linear-gradient(135deg, #FF6B5F, #FFB020)" }}
+                key={b.title}
+                className="rounded-2xl border p-6"
+                style={{
+                  borderColor: "rgba(255,255,255,0.08)",
+                  background: "rgba(255,255,255,0.03)",
+                }}
               >
-                {step.n}
+                <div className="mb-3 text-3xl">{b.icon}</div>
+                <h3 className="mb-2 text-base font-bold text-white">{b.title}</h3>
+                <p className="text-sm text-white/50">{b.text}</p>
               </div>
-              <div>
-                <h3 className="font-bold text-white mb-1" style={{ fontFamily: "Sora, sans-serif" }}>{step.title}</h3>
-                <p className="text-sm text-muted leading-relaxed">{step.text}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════
-          4. DIFFÉRENCIATION VS COMPARATEURS
-      ══════════════════════════════════════ */}
-      <section className="max-w-4xl mx-auto px-4 mb-20">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center" style={{ fontFamily: "Sora, sans-serif" }}>
-          Les comparateurs notent. Troviio choisit avec toi.
-        </h2>
-        <div className="rounded-2xl border border-white/5 overflow-hidden">
-          <div className="grid grid-cols-2 bg-surface-light">
-            <div className="p-4 text-sm font-semibold text-muted border-r border-white/5">Un comparateur classique</div>
-            <div className="p-4 text-sm font-semibold" style={{ color: "#3ED6A3" }}>Troviio</div>
-          </div>
-          {[
-            ["Classe les produits par score moyen", "Comprend ton contexte et tes contraintes"],
-            ["Te laisse arbitrer seul face à 20 options", "Écarte ce qui risque de te décevoir"],
-            ["Parle à tout le monde pareil", "Te donne une recommandation adaptée à TA situation"],
-            ["Tests labo sans connaître ton logement", "Croise tests experts ET avis d'usage réel"],
-            ["Revenus générés par l'affiliation", "Zéro biais, transparence totale"],
-          ].map(([left, right], i) => (
-            <div key={i} className={`grid grid-cols-2 ${i % 2 === 0 ? "bg-surface" : "bg-surface-light"}`}>
-              <div className="p-4 text-sm text-muted border-r border-white/5">{left}</div>
-              <div className="p-4 text-sm text-white">{right}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════
-          5. ANTI-VENDEUR HUMAIN
-      ══════════════════════════════════════ */}
-      <section className="max-w-4xl mx-auto px-4 mb-20 text-center">
-        <div className="bg-surface rounded-2xl border border-white/5 p-10">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ fontFamily: "Sora, sans-serif" }}>
-            Un vendeur sans commission, sans fatigue, sans baratin.
-          </h2>
-          <p className="text-muted max-w-2xl mx-auto mb-8 leading-relaxed">
-            Troviio ne pousse pas un stock, ne touche pas de prime et ne te fait pas choisir sous pression.
-            Il garde en tête des milliers de produits, lit les avis à ta place et reste disponible quand tu veux acheter, même à 23h.
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            {["✅ Recommandations indépendantes", "✅ Zéro pression", "✅ Disponible 24/7", "✅ 10 000+ produits analysés"].map((b) => (
-              <span key={b} className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium">
-                {b}
-              </span>
             ))}
           </div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════
-          7. PREUVE QUALITATIVE — CE QUE PICKSY ÉVITE
+          4. COMMENT TROVIIO TROUVE LE TIEN
       ══════════════════════════════════════ */}
-      <section className="max-w-6xl mx-auto px-4 mb-20">
-        <h2 className="text-2xl font-bold mb-8 text-center" style={{ fontFamily: "Sora, sans-serif" }}>
-          Ce que Troviio évite
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-          {[
-            {
-              quote: "Je voulais juste un aspirateur robot. Troviio m'a évité celui qui se bloque sous mon canapé.",
-              cas: "Cas typique : appartement 50m², meubles bas",
-            },
-            {
-              quote: "Troviio m'a surtout demandé combien de bruit j'acceptais le matin. Pas la machine à café qui me convenait.",
-              cas: "Cas typique : cuisine ouverte sur salon",
-            },
-            {
-              quote: "La TV la mieux notée n'était pas la meilleure pour mon salon très lumineux.",
-              cas: "Cas typique : pièce très éclairée",
-            },
-          ].map((t, i) => (
-            <div key={i} className="bg-surface rounded-2xl border border-white/5 p-6 flex flex-col gap-3">
-              <p className="text-white leading-relaxed text-sm italic">&ldquo;{t.quote}&rdquo;</p>
-              <p className="text-xs text-muted mt-auto">{t.cas}</p>
-            </div>
-          ))}
+      <section
+        className="border-t px-4 py-20 sm:px-6"
+        style={{ borderColor: "rgba(255,255,255,0.06)" }}
+      >
+        <div className="mx-auto max-w-4xl">
+          <h2
+            className="mb-12 text-center text-3xl font-bold text-white sm:text-4xl"
+            style={{ fontFamily: "'Sora', sans-serif" }}
+          >
+            Comment Troviio trouve le tien
+          </h2>
+          <div className="grid gap-8 sm:grid-cols-3">
+            {[
+              {
+                n: "1",
+                title: "Tu décris ta vraie situation",
+                text: "Budget, pièce, usage, contraintes, préférences et irritants.",
+              },
+              {
+                n: "2",
+                title: "Troviio lit entre les lignes",
+                text: "Troviio croise les avis, les défauts récurrents et les usages réels sur des milliers de produits.",
+              },
+              {
+                n: "3",
+                title: "Tu obtiens une recommandation claire",
+                text: "Pas une liste infinie. Un choix expliqué, avec les raisons de l'acheter ou de l'éviter.",
+              },
+            ].map((step) => (
+              <div key={step.n} className="flex flex-col items-center text-center">
+                <div
+                  className="mb-4 flex h-12 w-12 items-center justify-center rounded-full text-lg font-bold text-white"
+                  style={{ background: "linear-gradient(135deg, #FF6B5F, #FFB020)" }}
+                >
+                  {step.n}
+                </div>
+                <h3 className="mb-2 text-base font-bold text-white">{step.title}</h3>
+                <p className="text-sm text-white/50">{step.text}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════
-          8. NEWSLETTER
+          5. COMPARATEUR VS COMPARATEURS
       ══════════════════════════════════════ */}
-      <section className="max-w-xl mx-auto px-4 mb-20">
-        <div className="rounded-2xl border border-white/5 p-6 sm:p-8 text-center overflow-hidden" style={{ background: "linear-gradient(135deg, #1A1D2E, #242840)" }}>
-          <h3 className="text-lg font-bold mb-2" style={{ fontFamily: "Sora, sans-serif" }}>
-            💌 Rentre chez toi. Troviio s&apos;occupe du choix.
+      <section
+        className="border-t px-4 py-20 sm:px-6"
+        style={{ borderColor: "rgba(255,255,255,0.06)" }}
+      >
+        <div className="mx-auto max-w-3xl">
+          <h2
+            className="mb-10 text-center text-3xl font-bold text-white sm:text-4xl"
+            style={{ fontFamily: "'Sora', sans-serif" }}
+          >
+            Les comparateurs notent.{" "}
+            <span style={{ color: "#3ED6A3" }}>Troviio choisit avec toi.</span>
+          </h2>
+          <div className="overflow-hidden rounded-2xl border" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
+            <div
+              className="grid grid-cols-2 border-b text-xs font-bold uppercase tracking-wide"
+              style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.04)" }}
+            >
+              <div className="px-5 py-3 text-white/40">Un comparateur classique</div>
+              <div className="px-5 py-3" style={{ color: "#3ED6A3" }}>Troviio</div>
+            </div>
+            {[
+              ["Classe les produits par score moyen", "Comprend ton contexte et tes contraintes"],
+              ["Te laisse arbitrer seul face à 20 options", "Écarte ce qui risque de te décevoir"],
+              ["Parle à tout le monde pareil", "Te donne une recommandation adaptée à TA situation"],
+              ["Tests labo sans connaître ton logement", "Croise tests experts ET avis d'usage réel"],
+              ["Revenus générés par l'affiliation", "Zéro biais, transparence totale"],
+            ].map(([left, right], i) => (
+              <div
+                key={i}
+                className="grid grid-cols-2 border-b last:border-0"
+                style={{ borderColor: "rgba(255,255,255,0.06)" }}
+              >
+                <div className="px-5 py-4 text-sm text-white/40">{left}</div>
+                <div className="px-5 py-4 text-sm font-medium text-white/80">{right}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════
+          6. TESTIMONIALS
+      ══════════════════════════════════════ */}
+      <section
+        className="border-t px-4 py-20 sm:px-6"
+        style={{ borderColor: "rgba(255,255,255,0.06)" }}
+      >
+        <div className="mx-auto max-w-4xl">
+          <h2
+            className="mb-10 text-center text-2xl font-bold text-white sm:text-3xl"
+            style={{ fontFamily: "'Sora', sans-serif" }}
+          >
+            Ce que Troviio évite
+          </h2>
+          <div className="grid gap-6 sm:grid-cols-3">
+            {[
+              {
+                quote: "Je voulais juste un aspirateur robot. Troviio m'a évité celui qui se bloque sous mon canapé.",
+                cas: "Cas typique : appartement 50m², meubles bas",
+              },
+              {
+                quote: "Troviio m'a surtout demandé combien de bruit j'acceptais le matin. Pas la machine à café qui me convenait.",
+                cas: "Cas typique : cuisine ouverte sur salon",
+              },
+              {
+                quote: "La TV la mieux notée n'était pas la meilleure pour mon salon très lumineux.",
+                cas: "Cas typique : pièce très éclairée",
+              },
+            ].map((t, i) => (
+              <div
+                key={i}
+                className="rounded-2xl border p-6"
+                style={{
+                  borderColor: "rgba(255,255,255,0.08)",
+                  background: "rgba(255,255,255,0.03)",
+                }}
+              >
+                <p className="mb-3 text-sm italic text-white/70">"{t.quote}"</p>
+                <p className="text-xs text-white/30">{t.cas}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════
+          7. NEWSLETTER
+      ══════════════════════════════════════ */}
+      <section
+        className="border-t px-4 py-20 sm:px-6"
+        style={{ borderColor: "rgba(255,255,255,0.06)" }}
+      >
+        <div className="mx-auto max-w-xl text-center">
+          <h3
+            className="mb-2 text-2xl font-bold text-white"
+            style={{ fontFamily: "'Sora', sans-serif" }}
+          >
+            💌 Rentre chez toi. Troviio s'occupe du choix.
           </h3>
-          <p className="text-sm text-muted mb-6">
-            Chaque semaine, reçois des recommandations pensées pour la vraie vie : petits espaces, budgets serrés, animaux, enfants, bruit, entretien, durabilité.
+          <p className="mb-6 text-sm text-white/50">
+            Chaque semaine, des recommandations pensées pour la vraie vie : petits espaces,
+            budgets serrés, animaux, enfants, bruit, entretien, durabilité.
           </p>
           {subscribed ? (
-            <p className="font-semibold" style={{ color: "#3ED6A3" }}>✅ Parfait, tu es inscrit !</p>
+            <p className="text-sm font-semibold text-[#3ED6A3]">✅ Parfait, tu es inscrit !</p>
           ) : (
-            <form className="flex gap-2 max-w-md mx-auto" onSubmit={handleSubscribe}>
+            <form onSubmit={handleSubscribe} className="flex gap-2">
               <input
                 type="email"
-                placeholder="Ton email"
-                className="flex-1 bg-surface rounded-xl px-4 py-3 text-sm outline-none border border-white/8 focus:border-coral/50 text-white placeholder-muted"
-                required
+                placeholder="ton@email.fr"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                className="flex-1 rounded-full border px-4 py-3 text-sm text-white outline-none focus:border-[#3ED6A3] placeholder:text-white/30"
+                style={{
+                  background: "rgba(255,255,255,0.06)",
+                  borderColor: "rgba(255,255,255,0.12)",
+                }}
               />
               <button
                 type="submit"
-                style={{ background: "linear-gradient(135deg, #FF6B5F, #E5554A)" }}
-                className="text-white px-5 py-3 rounded-xl font-semibold transition-all text-sm whitespace-nowrap hover:-translate-y-0.5"
+                className="flex-shrink-0 rounded-full px-5 py-3 text-sm font-bold text-white"
+                style={{ background: "linear-gradient(135deg, #4257FF, #3ED6A3)" }}
               >
                 Recevoir les bons choix →
               </button>
@@ -568,64 +664,62 @@ export default function HomePage() {
       </section>
 
       {/* ══════════════════════════════════════
-          9. CTA FINAL
+          8. CTA FINAL
       ══════════════════════════════════════ */}
-      <section className="max-w-3xl mx-auto px-4 mb-20 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold mb-3" style={{ fontFamily: "Sora, sans-serif" }}>
-          Tu n&apos;as pas besoin du meilleur produit.
+      <section
+        className="border-t px-4 py-24 text-center sm:px-6"
+        style={{ borderColor: "rgba(255,255,255,0.06)" }}
+      >
+        <h2
+          className="mb-2 text-3xl font-bold text-white sm:text-4xl"
+          style={{ fontFamily: "'Sora', sans-serif" }}
+        >
+          Tu n'as pas besoin du meilleur produit.
         </h2>
-        <p className="text-lg text-muted mb-8">
+        <p className="mb-8 text-base text-white/50">
           Tu as besoin de celui qui va vraiment marcher chez toi.
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="flex flex-wrap justify-center gap-4">
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="rounded-full px-8 py-4 text-base font-bold text-white transition hover:-translate-y-0.5"
             style={{
               background: "linear-gradient(135deg, #FF6B5F, #FFB020)",
               boxShadow: "0 8px 32px rgba(255,107,95,0.35)",
             }}
-            className="px-8 py-4 rounded-full text-white text-base font-bold hover:-translate-y-0.5 transition-all"
           >
             Trouve le mien ✨
           </button>
           <a
             href="#adn"
-            className="text-sm text-muted underline underline-offset-4 hover:text-white transition-colors"
+            className="rounded-full border px-8 py-4 text-base font-bold text-white/70 transition hover:text-white"
+            style={{ borderColor: "rgba(255,255,255,0.15)" }}
           >
             Comprendre la méthode →
           </a>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════
-          10. FOOTER
-      ══════════════════════════════════════ */}
-      <footer className="border-t border-white/5 py-10 px-4">
-        <div className="max-w-6xl mx-auto">
-          {/* Links */}
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted mb-6">
-            <a href="/mentions-legales" className="hover:text-white transition-colors">Mentions légales</a>
-            <a href="/politique-confidentialite" className="hover:text-white transition-colors">Politique de confidentialité</a>
-            <a href="/affiliation" className="hover:text-white transition-colors">Affiliation Amazon</a>
-            <a href="/methodologie" className="hover:text-white transition-colors">Méthodologie</a>
-            <a href="/a-propos" className="hover:text-white transition-colors">À propos</a>
-            <a href="/contact" className="hover:text-white transition-colors">Contact</a>
-          </div>
-          {/* Brand + copyright */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted border-t border-white/5 pt-6">
-            <div className="flex items-center gap-3">
-              <img src="/logo-icon.svg" alt="" style={{ height: 24, opacity: 0.7 }} />
-              <span className="font-semibold text-white">Troviio</span>
-              <span>· Le conseiller maison pour tes achats maison</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <span className="text-xs">Liens affiliés Amazon · Recommandations indépendantes</span>
-              <span className="hidden sm:inline">·</span>
-              <span>© 2026 Troviio</span>
-            </div>
-          </div>
+      {/* ══ FOOTER ══ */}
+      <footer
+        className="border-t px-4 py-10 sm:px-6"
+        style={{ borderColor: "rgba(255,255,255,0.06)" }}
+      >
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 text-center text-xs text-white/30 sm:flex-row sm:justify-between sm:text-left">
+          <p>© 2026 Troviio — Recommandations indépendantes</p>
+          <nav className="flex gap-4">
+            <a href="/mentions-legales" className="hover:text-white/60 transition-colors">
+              Mentions légales
+            </a>
+            <a href="/politique-confidentialite" className="hover:text-white/60 transition-colors">
+              Confidentialité
+            </a>
+            <a href="/a-propos" className="hover:text-white/60 transition-colors">
+              À propos
+            </a>
+          </nav>
         </div>
       </footer>
-    </div>
+    </main>
   );
 }

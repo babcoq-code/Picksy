@@ -36,10 +36,8 @@ const ChatBubble = memo(function ChatBubble({
   const isUser = role === "user";
   const isAI = role === "ai";
 
-  // Si l'IA retourne un result_id → afficher le composant de redirection
-  if (isAI && result_id) {
-    return <ResultRedirectMessage result_id={result_id} />;
-  }
+  // Si l'IA retourne un result_id → afficher le texte + le composant de redirection
+  const showRedirect = isAI && result_id;
 
   const parsed = useMemo(() => {
     if (!isAI) return { cleanText: text, options: [] };
@@ -87,11 +85,18 @@ const ChatBubble = memo(function ChatBubble({
         </div>
 
         {/* Chips cliquables sous les bulles IA */}
-        {isAI && parsed.options.length > 0 && onSuggestionSelect && (
+        {isAI && parsed.options.length > 0 && onSuggestionSelect && !result_id && (
           <SuggestionChips
             options={parsed.options}
             onSelect={onSuggestionSelect}
           />
+        )}
+
+        {/* ResultRedirectMessage visible sous le texte, pas à la place */}
+        {showRedirect && result_id && (
+          <div className="mt-2 w-full">
+            <ResultRedirectMessage result_id={result_id} />
+          </div>
         )}
       </div>
     </article>
