@@ -1,4 +1,4 @@
-const AMAZON_TAG = process.env.NEXT_PUBLIC_AMAZON_AFFILIATE_TAG ?? "picksy-21";
+const AMAZON_TAG = process.env.NEXT_PUBLIC_AMAZON_AFFILIATE_TAG ?? "troviio-21";
 
 export type ProductForAffiliate = {
   affiliateUrl?: string | null;

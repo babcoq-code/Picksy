@@ -7,93 +7,43 @@ import type { Product } from "@/lib/types";
 import { ScoreRing } from "@/components/ScoreRing";
 import { ThinkingIndicator } from "@/components/chat/ThinkingIndicator";
 import CategoryGrid from "@/components/home/CategoryGrid";
-<<<<<<< HEAD
-=======
 import { STORAGE_KEYS } from "@/lib/storage-keys";
 import { useConversationHistory } from "@/hooks/useConversationHistory";
 import { CHAT_CATEGORIES, getCategoryBySlug, type ChatCategory, type ChatCategorySlug } from "@/app/constants/chat-categories";
-import { ChatHeader } from "@/components/chat/ChatHeader";
+
 
 // Fallback simple pour générer un ID unique (pas de dépendance uuid)
 function genId(): string {
   return `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
 }
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
 
 const ChatBubble = dynamic(() => import("@/components/ChatBubble"), { ssr: false });
 const ProductCard = dynamic(() => import("@/components/ProductCard"), { ssr: false });
 
-<<<<<<< HEAD
-const SUGGESTIONS = [
-  { label: "🤖 Aspirateur robot avec animaux et parquet", value: "Aspirateur robot avec animaux et parquet" },
-  { label: "☕ Machine à café silencieuse pour cuisine ouverte", value: "Machine à café silencieuse pour cuisine ouverte" },
-  { label: "📺 TV OLED pour salon très lumineux, budget 1 200€", value: "TV OLED pour salon très lumineux, budget 1 200€" },
-];
-
-const CATEGORIES = [
-  {
-    label: "🤖 Aspirateur robot",
-    cat: "aspirateur robot",
-    sub: "Pour ton sol, tes animaux, tes meubles et ton niveau de patience.",
-  },
-  {
-    label: "📺 TV OLED",
-    cat: "tv oled",
-    sub: "Pour ton salon, ta lumière, tes films, ton gaming et ton budget.",
-  },
-  {
-    label: "☕ Machine à café",
-    cat: "machine à café",
-    sub: "Pour ton goût, ta routine, ton bruit acceptable et ton plan de travail.",
-  },
-  { label: "🎧 Casque audio", cat: "casque audio", sub: "" },
-  { label: "💻 Laptop étudiant", cat: "ordinateur étudiant", sub: "" },
-  { label: "🍽️ Lave-vaisselle", cat: "lave-vaisselle", sub: "Silencieux, éco, taille standard ou compact." },
-  { label: "🛴 Trottinette électrique", cat: "trottinette électrique", sub: "Autonomie, poids, homologuée, budget." },
-  { label: "👶 Poussette", cat: "poussette", sub: "Légère, pliable, tout terrain, budget." },
-  { label: "🔊 Barre de son", cat: "barre de son", sub: "TV, gaming, Dolby, connexion, taille." },
-];
-
-export default function HomePage() {
-  const [message, setMessage] = useState("");
-  const [chat, setChat] = useState<{ role: "user" | "ai"; text: string; result_id?: string | null }[]>([]);
-=======
 export default function HomePage() {
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState<{ role: "user" | "ai"; text: string; options?: string[]; result_id?: string | null }[]>([]);
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
   const [history, setHistory] = useState<{ role: string; content: string }[]>([]);
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
-<<<<<<< HEAD
-=======
   const [selectedCategory, setSelectedCategory] = useState<ChatCategory | null>(null);
   const aiOpeningQuestionRef = useRef<string | null>(null);
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
   const chatEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const restored = useRef(false);
 
-<<<<<<< HEAD
-=======
   const { upsertEntry, setResultId } = useConversationHistory();
   const sessionIdRef = useRef<string>(genId());
 
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
   // Restaurer l'historique depuis localStorage (quand on vient de "Affiner")
   useEffect(() => {
     if (restored.current) return;
     restored.current = true;
     try {
-<<<<<<< HEAD
-      const savedHistory = localStorage.getItem("picksy_history");
-      const savedChat = localStorage.getItem("picksy_chat");
-=======
       const savedHistory = localStorage.getItem(STORAGE_KEYS.HISTORY);
       const savedChat = localStorage.getItem(STORAGE_KEYS.CHAT);
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
       if (savedHistory && savedChat) {
         const parsedHistory = JSON.parse(savedHistory);
         const parsedChat = JSON.parse(savedChat);
@@ -101,13 +51,8 @@ export default function HomePage() {
           setHistory(parsedHistory);
           setChat(parsedChat);
           // Nettoyer localStorage après restauration
-<<<<<<< HEAD
-          localStorage.removeItem("picksy_history");
-          localStorage.removeItem("picksy_chat");
-=======
         localStorage.removeItem(STORAGE_KEYS.HISTORY);
           localStorage.removeItem(STORAGE_KEYS.CHAT);
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
         }
       }
     } catch {}
@@ -116,20 +61,6 @@ export default function HomePage() {
   useEffect(() => {
     const chatSection = document.getElementById("chat");
     if (!chatSection) return;
-<<<<<<< HEAD
-    // Vérifier si la section chat est visible dans la fenêtre
-    const rect = chatSection.getBoundingClientRect();
-    const isChatVisible = rect.top < window.innerHeight && rect.bottom > 0;
-    if (!isChatVisible) return; // Ne pas scroll si le chat n'est pas visible
-
-    // Scroll DIRECT du container interne — pas de scrollIntoView qui peut scroll la page
-    const container = chatSection.querySelector(".overflow-y-auto");
-    if (!container) return;
-    const isNearBottom =
-      container.scrollHeight - container.scrollTop - container.clientHeight < 80;
-    if (isNearBottom) {
-      container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
-=======
     const rect = chatSection.getBoundingClientRect();
     const isChatVisible = rect.top < window.innerHeight && rect.bottom > 0;
     if (!isChatVisible) return;
@@ -146,7 +77,6 @@ export default function HomePage() {
 
     if (isNearBottom) {
       chatEndElement.scrollIntoView({ behavior: "smooth", block: "end" });
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
     }
   }, [chat]);
 
@@ -154,13 +84,8 @@ export default function HomePage() {
   useEffect(() => {
     if (history.length > 0) {
       try {
-<<<<<<< HEAD
-        sessionStorage.setItem("picksy_current_history", JSON.stringify(history));
-        sessionStorage.setItem("picksy_current_chat", JSON.stringify(chat));
-=======
         sessionStorage.setItem(STORAGE_KEYS.CURRENT_HISTORY, JSON.stringify(history));
         sessionStorage.setItem(STORAGE_KEYS.CURRENT_CHAT, JSON.stringify(chat));
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
       } catch {}
     }
   }, [history, chat]);
@@ -169,18 +94,6 @@ export default function HomePage() {
     const userMsg = (overrideMsg ?? message).trim();
     if (!userMsg || loading) return;
     setMessage("");
-<<<<<<< HEAD
-    setChat((prev) => [...prev, { role: "user", text: userMsg }]);
-    setLoading(true);
-    try {
-      const res = await chatWithAI(userMsg, history);
-      const aiText = res.reply;
-
-      // ✅ AJOUT : stocker result_id dans le message IA
-      setChat((prev) => [
-        ...prev,
-        { role: "ai", text: aiText, result_id: res.result_id ?? null },
-=======
 
     // Construire un historyToSend incluant le message d'ouverture IA si présent
     let historyToSend = history;
@@ -214,21 +127,17 @@ export default function HomePage() {
       setChat((prev) => [
         ...prev,
         { role: "ai", text: aiText, options: res.options ?? [], result_id: res.result_id ?? null },
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
       ]);
       setHistory((prev) => [
         ...prev,
         { role: "user", content: userMsg },
         { role: "assistant", content: aiText },
       ]);
-<<<<<<< HEAD
-=======
 
       // Si un result_id est retourné, lier à l'historique
       if (res.result_id) {
         setResultId(sessionIdRef.current, res.result_id);
       }
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
     } catch {
       setChat((prev) => [
         ...prev,
@@ -246,36 +155,6 @@ export default function HomePage() {
     setSubscribed(true);
   };
 
-<<<<<<< HEAD
-  const handleCategorySelect = (slug: string, label: string) => {
-    // Question immédiate sur le mode de vie — pas juste "je cherche X"
-    const questions: Record<string, string> = {
-      "robot-aspirateur": "Je cherche un aspirateur robot. Chez moi c'est un appartement, plutôt une maison, ou un studio ? Et toi, tu commences par où pour cerner mon besoin ?",
-      "aspirateur-balai": "Je cherche un aspirateur balai. Dis-moi : tu poses d'abord la question de la fréquence d'usage ou du type de sol ?",
-      "lave-linge": "Je cherche un lave-linge. Je vis seul, en couple, ou en famille — tu commences par quoi pour me conseiller ?",
-      "lave-vaisselle": "Je cherche un lave-vaisselle. On est 2, 4 ou plus à la maison — c'est ton premier critère ?",
-      "refrigerateur": "Je cherche un réfrigérateur. On est 2 ici et on cuisine pas mal — c'est utile de savoir ça pour toi ?",
-      "purificateur-air": "Je cherche un purificateur d'air. C'est pour des allergies, des animaux, ou la pollution — t'as besoin de savoir ça pour m'aiguiller ?",
-      "friteuse-air": "Je cherche une friteuse à air. On est 3 à la maison et on mange maison — ça compte pour trouver le bon format ?",
-      "machine-cafe": "Je cherche une machine à café. Je suis plutôt grains que capsules — ça influence ton conseil ?",
-      "tv-oled": "Je cherche une TV OLED. Mon canapé est à environ 2,5 m de l'écran — ça aide à choisir la bonne taille ?",
-      "casque-audio": "Je cherche un casque audio. Je l'utiliserai surtout chez moi, nomade et au bureau — t'as besoin de cette info ?",
-      "smartphone": "Je cherche un smartphone. Ma priorité c'est la photo, ensuite l'autonomie — ça t'aide à cibler ?",
-      "ordinateur-etudiant": "Je cherche un laptop étudiant. C'est pour du code et de la bureautique — tu pars sur quelle config type ?",
-      "imprimante": "Je cherche une imprimante. J'imprime surtout des documents, peu de photos — ça guide ton choix ?",
-      "barre-son": "Je cherche une barre de son. Je regarde surtout des films/séries — tu conseilles quoi comme point de départ ?",
-      "camera-securite": "Je cherche une caméra de sécurité. Pour l'intérieur, sans besoin d'enregistrement continu — t'as une idée ?",
-      "thermostat-connecte": "Je cherche un thermostat connecté. Je veux faire des économies et du confort — tu démarres par quoi ?",
-      "trottinette-electrique": "Je cherche une trottinette électrique. Je fais environ 8 km par jour — ça suffit pour m'orienter ?",
-      "velo-electrique": "Je cherche un vélo électrique. C'est pour des trajets urbains quotidiens — t'as besoin d'autres infos ?",
-      "poussette": "Je cherche une poussette. Je suis en ville avec transports — par quoi tu commences pour me conseiller ?",
-      "matelas": "Je cherche un matelas. Je dors seul et je préfère plutôt ferme — ça te parle ?",
-      "robot-cuisine": "Je cherche un robot cuisine. Je fais surtout de la pâtisserie — t'as des modèles en tête ?",
-      "cave-a-vin": "Je cherche une cave à vin. Je veux surtout garder des bouteilles à température — par où tu commences ?",
-    };
-    const nextMessage = questions[slug] || `Je cherche ${label.toLowerCase()}. Déjà, c'est pour quel usage au quotidien ?`;
-
-=======
   const handleCategorySelect = (slug: string) => {
     const cat = getCategoryBySlug(slug);
     if (!cat) return;
@@ -290,7 +169,6 @@ export default function HomePage() {
         result_id: null,
       },
     ]);
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
     // Scroll INTERNE du chat uniquement — pas de scrollIntoView sur la page
     const chatSection = document.getElementById("chat");
     if (chatSection) {
@@ -299,13 +177,6 @@ export default function HomePage() {
         container.scrollTop = 0;
       }
     }
-<<<<<<< HEAD
-    setMessage(nextMessage);
-    setTimeout(() => {
-      inputRef.current?.focus();
-      handleSend(nextMessage);
-    }, 350);
-=======
     setTimeout(() => {
       const chatSection = document.getElementById("chat");
       chatSection?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -319,7 +190,6 @@ export default function HomePage() {
     setMessage("");
     aiOpeningQuestionRef.current = null;
     window.scrollTo({ top: 0, behavior: "smooth" });
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
   };
 
   const loadTop = async (cat: string) => {
@@ -391,65 +261,36 @@ export default function HomePage() {
       {/* ══════════════════════════════════════
           1.5 CATALOGUE CATÉGORIES
       ══════════════════════════════════════ */}
-<<<<<<< HEAD
-      <CategoryGrid onSelect={handleCategorySelect} />
-=======
       <CategoryGrid onSelect={handleCategorySelect} selectedSlug={selectedCategory?.slug ?? null} />
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
 
       {/* ── CHAT ── */}
       <section id="chat" className="max-w-2xl mx-auto px-4 mb-16 scroll-mt-24">
         <div className="bg-surface rounded-2xl border border-white/5 overflow-hidden shadow-2xl">
 
-<<<<<<< HEAD
-          {/* Messages */}
-          <div className="h-[420px] overflow-y-auto p-5 space-y-4 scrollbar-thin scrollbar-thumb-surface-light">
-=======
-          {/* ChatHeader conditionnel */}
           {selectedCategory && (
-            <ChatHeader
-              category={selectedCategory}
-              historyLength={history.length}
-              onReset={handleReset}
-            />
+            <div className="flex items-center justify-between px-1 mb-2">
+              <button
+                onClick={handleReset}
+                className="text-xs text-[#8B8FA3] hover:text-white/60 transition-colors"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                ← Autre catégorie
+              </button>
+              <span
+                className="text-xs font-medium"
+                style={{ color: selectedCategory.color, fontFamily: "'Inter', sans-serif" }}
+              >
+                {selectedCategory.emoji} {selectedCategory.label}
+              </span>
+            </div>
           )}
 
           {/* Messages */}
           <div className="h-[420px] overflow-y-auto p-5 space-y-4 scrollbar-thin scrollbar-thumb-surface-light" data-chat-scroll>
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
             {chat.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full text-center gap-4">
                 <div className="text-5xl">🛍️</div>
                 <div>
-<<<<<<< HEAD
-                  <p className="font-semibold text-white text-base mb-1">Quel produit tu cherches ?</p>
-                  <p className="text-sm text-muted">Troviio t&apos;accompagne étape par étape</p>
-                </div>
-                <div className="flex flex-wrap gap-2 justify-center mt-2">
-                  {SUGGESTIONS.map((s) => (
-                    <button
-                      key={s.value}
-                      onClick={() => handleSend(s.value)}
-                      className="px-4 py-2 rounded-full bg-surface-light border border-white/10 text-sm font-medium hover:border-coral/50 hover:bg-white/5 transition-all text-left"
-                    >
-                      {s.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <>
-                {chat.map((msg, i) => (
-                  <div key={i}>
-                    <ChatBubble
-                      role={msg.role}
-                      text={msg.text}
-                      result_id={msg.result_id}
-                      onSuggestionSelect={handleSend}
-                    />
-                  </div>
-                ))}
-=======
                   <p className="font-semibold text-white text-base mb-1">Choisis une catégorie ci-dessus</p>
                   <p className="text-sm text-muted">Troviio t&apos;accompagne étape par étape</p>
                 </div>
@@ -479,7 +320,6 @@ export default function HomePage() {
                   );
                 });
               })()}
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
                 {loading && (
                   <div className="flex justify-start px-2">
                     <ThinkingIndicator />

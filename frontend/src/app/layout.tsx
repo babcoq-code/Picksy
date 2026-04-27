@@ -7,6 +7,9 @@ export const metadata = {
   description:
     "Troviio ne compare pas les produits. Il comprend ta vie, tes contraintes et ton budget pour te recommander LE produit qui te correspond. Zéro biais, zéro commission.",
   icons: { icon: "/logo-icon.svg" },
+  other: {
+    "verification": "81bc37e56daa107ead4fd669e3b0f3cc"
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

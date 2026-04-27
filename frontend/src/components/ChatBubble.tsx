@@ -17,28 +17,20 @@ export type ChatMessage = {
 type ChatBubbleProps = {
   role: ChatMessageRole;
   text: string;
-<<<<<<< HEAD
-  result_id?: string | null;
-=======
   options?: string[];
   result_id?: string | null;
   isLoading?: boolean;
   isLastAiMessage?: boolean;
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
   onSuggestionSelect?: (value: string) => void | Promise<void>;
 };
 
 const ChatBubble = memo(function ChatBubble({
   role,
   text,
-<<<<<<< HEAD
-  result_id,
-=======
   options: externalOptions,
   result_id,
   isLoading,
   isLastAiMessage,
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
   onSuggestionSelect,
 }: ChatBubbleProps) {
   const isUser = role === "user";
@@ -51,17 +43,12 @@ const ChatBubble = memo(function ChatBubble({
 
   const parsed = useMemo(() => {
     if (!isAI) return { cleanText: text, options: [] };
-<<<<<<< HEAD
-    return parseAIOptions(text);
-  }, [isAI, text]);
-=======
     // Les options externes (passées depuis page.tsx) prennent le pas sur le parsing
     if (externalOptions && externalOptions.length > 0) {
       return { cleanText: text, options: externalOptions };
     }
     return parseAIOptions(text);
   }, [isAI, text, externalOptions]);
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
 
   const html = useMemo(() => {
     return renderMarkdown(parsed.cleanText);
@@ -78,7 +65,7 @@ const ChatBubble = memo(function ChatBubble({
             "rounded-3xl px-5 py-4 text-[15px] leading-relaxed",
             isUser
               ? "rounded-br-lg text-white"
-              : "rounded-bl-lg border border-white/8 bg-surface-light text-white/90",
+              : "rounded-bl-lg border border-white/10 bg-[rgba(255,255,255,0.08)] text-white",
           ].join(" ")}
           style={
             isUser

@@ -65,10 +65,7 @@ export interface ChatResponse {
   profile?: Record<string, unknown> | null;
   recommendations?: Product[] | null;
   result_id?: string | null;
-<<<<<<< HEAD
-=======
   options?: string[];
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
 }
 
 // ─── Newsletter Types ────────────────────────────────────────

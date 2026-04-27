@@ -4,12 +4,6 @@ import type { RecommendationResult, RecommendationItem } from "@/types/recommend
 import { ResultClientComponents } from "./result-client";
 import ScoreRing from "@/components/ScoreRing";
 
-<<<<<<< HEAD
-// ─── Fetch ────────────────────────────────────────────────────────────────────
-
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://picksy.babcoq.tech";
-const API_URL = process.env.PICKSY_API_URL ?? APP_URL;
-=======
 const AFFILIATE_TAG = process.env.NEXT_PUBLIC_AMAZON_TAG ?? "troviio-21";
 
 function buildAffiliateUrl(url: string | null | undefined, asin: string | null | undefined): string | null {
@@ -32,9 +26,6 @@ function buildAffiliateUrl(url: string | null | undefined, asin: string | null |
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://troviio.com";
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://backend:8000";
-const AFFILIATE_TAG = process.env.NEXT_PUBLIC_AMAZON_TAG ?? "troviio-21";
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
-
 async function getResult(id: string): Promise<RecommendationResult | null> {
   try {
     const res = await fetch(`${API_URL}/api/results/${encodeURIComponent(id)}`, {
@@ -197,23 +188,7 @@ export default async function ResultPage({
               const topColor =
                 reco.rank === 1 ? "bg-[#FF6B5F]" : reco.rank === 2 ? "bg-[#3ED6A3]" : "bg-[#4257FF]";
               const delay = ["0ms", "150ms", "300ms"][i];
-<<<<<<< HEAD
-              const affiliateUrl = reco.affiliate_url
-                ? (() => {
-                    try {
-                      const u = new URL(reco.affiliate_url);
-                      u.searchParams.set("tag", "picksy-21");
-                      return u.toString();
-                    } catch {
-                      return reco.affiliate_url;
-                    }
-                  })()
-                : reco.amazon_asin
-                ? `https://www.amazon.fr/dp/${reco.amazon_asin}?tag=picksy-21`
-                : null;
-=======
               const affiliateUrl = buildAffiliateUrl(reco.affiliate_url, reco.amazon_asin);
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
 
               return (
                 <article
@@ -308,23 +283,7 @@ export default async function ResultPage({
 
           <div className="mt-8 grid gap-6 lg:grid-cols-3">
             {sorted.map((reco) => {
-<<<<<<< HEAD
-              const affiliateUrl = reco.affiliate_url
-                ? (() => {
-                    try {
-                      const u = new URL(reco.affiliate_url);
-                      u.searchParams.set("tag", "picksy-21");
-                      return u.toString();
-                    } catch {
-                      return reco.affiliate_url;
-                    }
-                  })()
-                : reco.amazon_asin
-                ? `https://www.amazon.fr/dp/${reco.amazon_asin}?tag=picksy-21`
-                : null;
-=======
               const affiliateUrl = buildAffiliateUrl(reco.affiliate_url, reco.amazon_asin);
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
 
               const specEntries = Object.entries(reco.specs ?? {}).slice(0, 6);
 

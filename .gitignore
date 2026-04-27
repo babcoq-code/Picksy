@@ -1,10 +1,7 @@
+*.env
+.env.local
+.env.production
+.DS_Store
+healthcheck.sh
 node_modules/
 .next/
-__pycache__/
-*.pyc
-.env
-.env.local
-*.tsbuildinfo
-celerybeat-schedule
-backend/scripts/
-scripts/

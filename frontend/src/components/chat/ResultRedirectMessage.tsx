@@ -2,10 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-<<<<<<< HEAD
-=======
 import { STORAGE_KEYS } from "@/lib/storage-keys";
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
 
 type ResultRedirectMessageProps = {
   result_id: string;
@@ -20,17 +17,6 @@ export function ResultRedirectMessage({ result_id }: ResultRedirectMessageProps)
   useEffect(() => {
     if (!result_id) return;
 
-<<<<<<< HEAD
-    // Sauvegarder l'historique du chat dans localStorage pour "Affiner"
-    try {
-      const savedCity = sessionStorage.getItem("picksy_current_history");
-      const savedChatSession = sessionStorage.getItem("picksy_current_chat");
-      if (savedCity) {
-        localStorage.setItem("picksy_history", savedCity);
-        localStorage.setItem("picksy_chat", savedChatSession || "[]");
-        sessionStorage.removeItem("picksy_current_history");
-        sessionStorage.removeItem("picksy_current_chat");
-=======
     // Sauvegarder l'historique pour "Affiner" sur la page résultat
     try {
       const savedHistory = sessionStorage.getItem(STORAGE_KEYS.CURRENT_HISTORY);
@@ -40,7 +26,6 @@ export function ResultRedirectMessage({ result_id }: ResultRedirectMessageProps)
         localStorage.setItem(STORAGE_KEYS.CHAT,    savedChat || "[]");
         sessionStorage.removeItem(STORAGE_KEYS.CURRENT_HISTORY);
         sessionStorage.removeItem(STORAGE_KEYS.CURRENT_CHAT);
->>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
       }
     } catch {}
 
