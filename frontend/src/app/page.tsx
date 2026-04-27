@@ -7,10 +7,23 @@ import type { Product } from "@/lib/types";
 import { ScoreRing } from "@/components/ScoreRing";
 import { ThinkingIndicator } from "@/components/chat/ThinkingIndicator";
 import CategoryGrid from "@/components/home/CategoryGrid";
+<<<<<<< HEAD
+=======
+import { STORAGE_KEYS } from "@/lib/storage-keys";
+import { useConversationHistory } from "@/hooks/useConversationHistory";
+import { CHAT_CATEGORIES, getCategoryBySlug, type ChatCategory, type ChatCategorySlug } from "@/app/constants/chat-categories";
+import { ChatHeader } from "@/components/chat/ChatHeader";
+
+// Fallback simple pour générer un ID unique (pas de dépendance uuid)
+function genId(): string {
+  return `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
+}
+>>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
 
 const ChatBubble = dynamic(() => import("@/components/ChatBubble"), { ssr: false });
 const ProductCard = dynamic(() => import("@/components/ProductCard"), { ssr: false });
 
+<<<<<<< HEAD
 const SUGGESTIONS = [
   { label: "🤖 Aspirateur robot avec animaux et parquet", value: "Aspirateur robot avec animaux et parquet" },
   { label: "☕ Machine à café silencieuse pour cuisine ouverte", value: "Machine à café silencieuse pour cuisine ouverte" },
@@ -44,22 +57,43 @@ const CATEGORIES = [
 export default function HomePage() {
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState<{ role: "user" | "ai"; text: string; result_id?: string | null }[]>([]);
+=======
+export default function HomePage() {
+  const [message, setMessage] = useState("");
+  const [chat, setChat] = useState<{ role: "user" | "ai"; text: string; options?: string[]; result_id?: string | null }[]>([]);
+>>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
   const [history, setHistory] = useState<{ role: string; content: string }[]>([]);
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
+<<<<<<< HEAD
+=======
+  const [selectedCategory, setSelectedCategory] = useState<ChatCategory | null>(null);
+  const aiOpeningQuestionRef = useRef<string | null>(null);
+>>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
   const chatEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const restored = useRef(false);
 
+<<<<<<< HEAD
+=======
+  const { upsertEntry, setResultId } = useConversationHistory();
+  const sessionIdRef = useRef<string>(genId());
+
+>>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
   // Restaurer l'historique depuis localStorage (quand on vient de "Affiner")
   useEffect(() => {
     if (restored.current) return;
     restored.current = true;
     try {
+<<<<<<< HEAD
       const savedHistory = localStorage.getItem("picksy_history");
       const savedChat = localStorage.getItem("picksy_chat");
+=======
+      const savedHistory = localStorage.getItem(STORAGE_KEYS.HISTORY);
+      const savedChat = localStorage.getItem(STORAGE_KEYS.CHAT);
+>>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
       if (savedHistory && savedChat) {
         const parsedHistory = JSON.parse(savedHistory);
         const parsedChat = JSON.parse(savedChat);
@@ -67,8 +101,13 @@ export default function HomePage() {
           setHistory(parsedHistory);
           setChat(parsedChat);
           // Nettoyer localStorage après restauration
+<<<<<<< HEAD
           localStorage.removeItem("picksy_history");
           localStorage.removeItem("picksy_chat");
+=======
+        localStorage.removeItem(STORAGE_KEYS.HISTORY);
+          localStorage.removeItem(STORAGE_KEYS.CHAT);
+>>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
         }
       }
     } catch {}
@@ -77,6 +116,7 @@ export default function HomePage() {
   useEffect(() => {
     const chatSection = document.getElementById("chat");
     if (!chatSection) return;
+<<<<<<< HEAD
     // Vérifier si la section chat est visible dans la fenêtre
     const rect = chatSection.getBoundingClientRect();
     const isChatVisible = rect.top < window.innerHeight && rect.bottom > 0;
@@ -89,6 +129,24 @@ export default function HomePage() {
       container.scrollHeight - container.scrollTop - container.clientHeight < 80;
     if (isNearBottom) {
       container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
+=======
+    const rect = chatSection.getBoundingClientRect();
+    const isChatVisible = rect.top < window.innerHeight && rect.bottom > 0;
+    if (!isChatVisible) return;
+
+    const chatEndElement = chatEndRef.current;
+    if (!chatEndElement) return;
+
+    const container = chatEndElement.closest("[data-chat-scroll]") as HTMLElement | null
+      ?? chatEndElement.parentElement;
+    if (!container) return;
+
+    const isNearBottom =
+      container.scrollHeight - container.scrollTop - container.clientHeight < 80;
+
+    if (isNearBottom) {
+      chatEndElement.scrollIntoView({ behavior: "smooth", block: "end" });
+>>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
     }
   }, [chat]);
 
@@ -96,8 +154,13 @@ export default function HomePage() {
   useEffect(() => {
     if (history.length > 0) {
       try {
+<<<<<<< HEAD
         sessionStorage.setItem("picksy_current_history", JSON.stringify(history));
         sessionStorage.setItem("picksy_current_chat", JSON.stringify(chat));
+=======
+        sessionStorage.setItem(STORAGE_KEYS.CURRENT_HISTORY, JSON.stringify(history));
+        sessionStorage.setItem(STORAGE_KEYS.CURRENT_CHAT, JSON.stringify(chat));
+>>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
       } catch {}
     }
   }, [history, chat]);
@@ -106,6 +169,7 @@ export default function HomePage() {
     const userMsg = (overrideMsg ?? message).trim();
     if (!userMsg || loading) return;
     setMessage("");
+<<<<<<< HEAD
     setChat((prev) => [...prev, { role: "user", text: userMsg }]);
     setLoading(true);
     try {
@@ -116,12 +180,55 @@ export default function HomePage() {
       setChat((prev) => [
         ...prev,
         { role: "ai", text: aiText, result_id: res.result_id ?? null },
+=======
+
+    // Construire un historyToSend incluant le message d'ouverture IA si présent
+    let historyToSend = history;
+    if (aiOpeningQuestionRef.current) {
+      historyToSend = [
+        { role: "assistant", content: aiOpeningQuestionRef.current },
+        ...history,
+      ];
+      aiOpeningQuestionRef.current = null; // ne l'injecter qu'une fois
+    }
+
+    // Sauvegarder dans l'historique dès le premier message user
+    if (history.length === 0) {
+      upsertEntry({
+        id: sessionIdRef.current,
+        categorySlug: selectedCategory?.slug ?? "recherche",
+        categoryLabel: selectedCategory?.label ?? "Recherche",
+        categoryEmoji: selectedCategory?.emoji ?? "🔍",
+        summary: userMsg.slice(0, 72),
+        createdAt: new Date().toISOString(),
+      });
+    }
+
+    setChat((prev) => [...prev, { role: "user", text: userMsg }]);
+    setLoading(true);
+    try {
+      const res = await chatWithAI(userMsg, historyToSend);
+      const aiText = res.reply;
+
+      // ✅ AJOUT : stocker result_id et options dans le message IA
+      setChat((prev) => [
+        ...prev,
+        { role: "ai", text: aiText, options: res.options ?? [], result_id: res.result_id ?? null },
+>>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
       ]);
       setHistory((prev) => [
         ...prev,
         { role: "user", content: userMsg },
         { role: "assistant", content: aiText },
       ]);
+<<<<<<< HEAD
+=======
+
+      // Si un result_id est retourné, lier à l'historique
+      if (res.result_id) {
+        setResultId(sessionIdRef.current, res.result_id);
+      }
+>>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
     } catch {
       setChat((prev) => [
         ...prev,
@@ -139,6 +246,7 @@ export default function HomePage() {
     setSubscribed(true);
   };
 
+<<<<<<< HEAD
   const handleCategorySelect = (slug: string, label: string) => {
     // Question immédiate sur le mode de vie — pas juste "je cherche X"
     const questions: Record<string, string> = {
@@ -167,6 +275,22 @@ export default function HomePage() {
     };
     const nextMessage = questions[slug] || `Je cherche ${label.toLowerCase()}. Déjà, c'est pour quel usage au quotidien ?`;
 
+=======
+  const handleCategorySelect = (slug: string) => {
+    const cat = getCategoryBySlug(slug);
+    if (!cat) return;
+    setSelectedCategory(cat);
+    setHistory([]);
+    aiOpeningQuestionRef.current = cat.openingQuestion;
+    setChat([
+      {
+        role: "ai",
+        text: cat.openingQuestion,
+        options: [...cat.openingOptions],
+        result_id: null,
+      },
+    ]);
+>>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
     // Scroll INTERNE du chat uniquement — pas de scrollIntoView sur la page
     const chatSection = document.getElementById("chat");
     if (chatSection) {
@@ -175,11 +299,27 @@ export default function HomePage() {
         container.scrollTop = 0;
       }
     }
+<<<<<<< HEAD
     setMessage(nextMessage);
     setTimeout(() => {
       inputRef.current?.focus();
       handleSend(nextMessage);
     }, 350);
+=======
+    setTimeout(() => {
+      const chatSection = document.getElementById("chat");
+      chatSection?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  };
+
+  const handleReset = () => {
+    setSelectedCategory(null);
+    setChat([]);
+    setHistory([]);
+    setMessage("");
+    aiOpeningQuestionRef.current = null;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+>>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
   };
 
   const loadTop = async (cat: string) => {
@@ -251,18 +391,37 @@ export default function HomePage() {
       {/* ══════════════════════════════════════
           1.5 CATALOGUE CATÉGORIES
       ══════════════════════════════════════ */}
+<<<<<<< HEAD
       <CategoryGrid onSelect={handleCategorySelect} />
+=======
+      <CategoryGrid onSelect={handleCategorySelect} selectedSlug={selectedCategory?.slug ?? null} />
+>>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
 
       {/* ── CHAT ── */}
       <section id="chat" className="max-w-2xl mx-auto px-4 mb-16 scroll-mt-24">
         <div className="bg-surface rounded-2xl border border-white/5 overflow-hidden shadow-2xl">
 
+<<<<<<< HEAD
           {/* Messages */}
           <div className="h-[420px] overflow-y-auto p-5 space-y-4 scrollbar-thin scrollbar-thumb-surface-light">
+=======
+          {/* ChatHeader conditionnel */}
+          {selectedCategory && (
+            <ChatHeader
+              category={selectedCategory}
+              historyLength={history.length}
+              onReset={handleReset}
+            />
+          )}
+
+          {/* Messages */}
+          <div className="h-[420px] overflow-y-auto p-5 space-y-4 scrollbar-thin scrollbar-thumb-surface-light" data-chat-scroll>
+>>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
             {chat.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full text-center gap-4">
                 <div className="text-5xl">🛍️</div>
                 <div>
+<<<<<<< HEAD
                   <p className="font-semibold text-white text-base mb-1">Quel produit tu cherches ?</p>
                   <p className="text-sm text-muted">Troviio t&apos;accompagne étape par étape</p>
                 </div>
@@ -290,6 +449,37 @@ export default function HomePage() {
                     />
                   </div>
                 ))}
+=======
+                  <p className="font-semibold text-white text-base mb-1">Choisis une catégorie ci-dessus</p>
+                  <p className="text-sm text-muted">Troviio t&apos;accompagne étape par étape</p>
+                </div>
+              </div>
+            ) : (
+              <>
+                {(() => {
+                // Chips UNIQUEMENT sur le dernier message IA
+                const lastAiIndex = chat.reduce(
+                  (lastIdx, msg, idx) => (msg.role === "ai" ? idx : lastIdx),
+                  -1
+                );
+                return chat.map((msg, i) => {
+                  const isLastAiMessage = i === lastAiIndex && msg.role === "ai";
+                  return (
+                    <div key={i}>
+                      <ChatBubble
+                        role={msg.role}
+                        text={msg.text}
+                        options={msg.options}
+                        result_id={msg.result_id}
+                        isLoading={loading && isLastAiMessage}
+                        isLastAiMessage={isLastAiMessage}
+                        onSuggestionSelect={isLastAiMessage ? handleSend : undefined}
+                      />
+                    </div>
+                  );
+                });
+              })()}
+>>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
                 {loading && (
                   <div className="flex justify-start px-2">
                     <ThinkingIndicator />

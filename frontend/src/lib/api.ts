@@ -8,7 +8,11 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://troviio.com/api";
  * Internal base for server-to-server calls within Docker.
  * Next.js Server Components can use this to call the backend directly.
  */
+<<<<<<< HEAD
 const INTERNAL_API_BASE = process.env.INTERNAL_API_URL || "http://172.19.0.4:8000/api";
+=======
+const INTERNAL_API_BASE = process.env.INTERNAL_API_URL || "http://backend:8000/api";
+>>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
 
 /**
  * Generic fetch for API calls — used by accessory pages.

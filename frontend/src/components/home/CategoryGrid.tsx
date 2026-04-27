@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client";
 
 import { useMemo, useRef, useState } from "react";
@@ -259,5 +260,85 @@ export default function CategoryGrid({ onSelect }: Props) {
         </div>
       </div>
     </section>
+=======
+// src/components/home/CategoryGrid.tsx
+"use client";
+
+import { CHAT_CATEGORIES, type ChatCategorySlug } from "@/app/constants/chat-categories";
+
+interface CategoryGridProps {
+  onSelect: (slug: ChatCategorySlug) => void;
+  selectedSlug?: string | null;
+}
+
+export default function CategoryGrid({ onSelect, selectedSlug }: CategoryGridProps) {
+  return (
+    <div className="w-full max-w-5xl mx-auto px-4">
+      <p
+        className="text-center text-sm font-semibold mb-5 uppercase tracking-widest"
+        style={{
+          fontFamily: "'Inter', sans-serif",
+          color: "rgba(22,24,39,0.40)",
+          letterSpacing: "0.15em",
+        }}
+      >
+        Choisis une catégorie pour commencer
+      </p>
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+        {CHAT_CATEGORIES.map((cat, i) => {
+          const isSelected = selectedSlug === cat.slug;
+          return (
+            <button
+              key={cat.slug}
+              type="button"
+              onClick={() => onSelect(cat.slug)}
+              className="group flex flex-col items-center gap-3 rounded-[20px] p-5 text-center transition-all duration-200 hover:-translate-y-0.5"
+              style={{
+                animationDelay: `${i * 45}ms`,
+                background: isSelected ? `${cat.color}12` : "#FFF7ED",
+                border: isSelected
+                  ? `2px solid ${cat.color}`
+                  : "2px solid rgba(22,24,39,0.06)",
+                boxShadow: isSelected
+                  ? `0 8px 24px ${cat.color}28`
+                  : "0 2px 8px rgba(22,24,39,0.04)",
+              } as React.CSSProperties}
+              onMouseEnter={(e) => {
+                if (isSelected) return;
+                e.currentTarget.style.background = "white";
+                e.currentTarget.style.borderColor = `${cat.color}60`;
+                e.currentTarget.style.boxShadow = `0 8px 24px rgba(22,24,39,0.10)`;
+              }}
+              onMouseLeave={(e) => {
+                if (isSelected) return;
+                e.currentTarget.style.background = "#FFF7ED";
+                e.currentTarget.style.borderColor = "rgba(22,24,39,0.06)";
+                e.currentTarget.style.boxShadow = "0 2px 8px rgba(22,24,39,0.04)";
+              }}
+            >
+              <span className="text-3xl transition-transform duration-200 group-hover:scale-110">
+                {cat.emoji}
+              </span>
+              <span
+                className="text-sm font-semibold leading-snug"
+                style={{ fontFamily: "'Sora', sans-serif", color: isSelected ? cat.color : "#161827" }}
+              >
+                {cat.label}
+              </span>
+              {cat.subtext && (
+                <span
+                  className="text-xs leading-tight line-clamp-2"
+                  style={{ fontFamily: "'Inter', sans-serif", color: "rgba(22,24,39,0.48)" }}
+                >
+                  {cat.subtext}
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+>>>>>>> 4e3d4795 (feat(chat): Chat IA v2 — clic catégorie → IA parle en premier)
   );
 }
